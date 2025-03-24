@@ -1,0 +1,53 @@
+ion-segment{
+    width: 90vw;
+    justify-self: center;
+    margin: 1rem;
+    background-color: #F2EFE3;
+    border-radius: 5rem;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .4));
+    justify-items: center;
+}
+ion-segment-button{
+    width: 100%;
+}
+ion-segment-view{
+    margin-top: .5rem;
+}
+ion-label{
+    overflow: visible;
+}
+#second{
+    height: 80vh;
+    overflow-y: auto;
+}
+.sub-header{
+    margin-top: 1rem;
+    --background: #4F6C70;
+    border-radius: 1rem;
+    width: 90vw;
+    justify-self: center;
+}
+.sub-header ion-label{
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+    color: #F6F7FF;
+}
+ion-card{
+    cursor: pointer;
+    max-height: 404px;
+    border-radius: 1rem;
+    transition: all .3s ease;
+}
+ion-card:hover{
+    transform: scale(1.01);
+}
+ion-col{
+    min-width: 323.2px;
+}
+img{
+    height: 100%;
+}
+ion-card-title{
+    text-align: center;
+}

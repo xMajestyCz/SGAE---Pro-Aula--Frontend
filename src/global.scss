@@ -34,4 +34,27 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+*{
+    font-family: "Ubuntu", sans-serif;
+}
+ion-app{
+    background-color: #B2C8BE;
+}
+:root {
+	--ion-color-new: #F38994;
+	--ion-color-new-rgb: 243,137,148;
+	--ion-color-new-contrast: #000000;
+	--ion-color-new-contrast-rgb: 0,0,0;
+	--ion-color-new-shade: #d67982;
+	--ion-color-new-tint: #f4959f;
+}
+
+.ion-color-new {
+	--ion-color-base: var(--ion-color-new);
+	--ion-color-base-rgb: var(--ion-color-new-rgb);
+	--ion-color-contrast: var(--ion-color-new-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new-shade);
+	--ion-color-tint: var(--ion-color-new-tint);
+}
