@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   standalone: false
 })
 export class MainComponent  implements OnInit {
+  @Input() label: string = '';
   isLoaded = false;
 
   constructor() { }

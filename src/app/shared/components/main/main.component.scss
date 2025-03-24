@@ -21,6 +21,7 @@ ion-label{
     overflow-y: auto;
 }
 .sub-header{
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .4));
     margin-top: 1rem;
     --background: #4F6C70;
     border-radius: 1rem;
@@ -34,6 +35,7 @@ ion-label{
     color: #F6F7FF;
 }
 ion-card{
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .4));
     cursor: pointer;
     max-height: 404px;
     border-radius: 1rem;
