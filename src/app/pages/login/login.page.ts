@@ -14,12 +14,16 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      user: ['', Validators.required],  
-      password: ['', Validators.required]    
+      nombreUsuario: ['', Validators.required], // Coincide con el HTML
+      password: ['', Validators.required]
     });
+  }
 
+  onlogin() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
+  }
 }
-onlogin() {
-  console.log(this.loginForm.value);    
-}
-}
+
+

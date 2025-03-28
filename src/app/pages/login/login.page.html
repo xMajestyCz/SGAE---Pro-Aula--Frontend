@@ -1,6 +1,6 @@
 <ion-content class="login-container">
   <div class="login-wrapper">
-    
+
     <!-- Sección de Imagen -->
     <div class="image-section">
       <img src="assets/img/sentada2.png" alt="Login Image">
@@ -13,17 +13,17 @@
         <h2>Autenticación</h2>
 
         <ion-item>
-          <ion-label position="floating" for="nombreUsuario">Usuario:</ion-label>
+          <ion-label position="floating">Usuario:</ion-label>
           <ion-input formControlName="nombreUsuario" type="text" placeholder="Ingrese el usuario"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating" for="password">Contraseña:</ion-label>
+          <ion-label position="floating">Contraseña:</ion-label>
           <ion-input formControlName="password" type="password" placeholder="Ingrese la contraseña"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" class="primary" [disabled]="!loginForm.valid">Ingresar</ion-button>
-        <a [routerLink]="'/forget-password'">¿Olvidaste tu contras?</a>
+        <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="onlogin()">Ingresar</ion-button>
+        <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
       </form>
     </div>
 
