@@ -1,4 +1,5 @@
 ion-segment{
+    max-width: 768px;
     width: 90vw;
     justify-self: center;
     margin: 1rem;
@@ -14,6 +15,7 @@ ion-segment-view{
     margin-top: .5rem;
 }
 ion-label{
+    color: #284353;
     overflow: visible;
 }
 #second{
@@ -35,6 +37,7 @@ ion-label{
     color: #F6F7FF;
 }
 ion-card{
+    background-color: #f8efe0;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, .4));
     cursor: pointer;
     max-height: 404px;
@@ -52,4 +55,16 @@ img{
 }
 ion-card-title{
     text-align: center;
+}
+ion-card-content{
+    padding-bottom: 1rem;
+    overflow: hidden;
+    display: block;
+}
+.preview-wrapper {
+    max-height: 17rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: 1rem;
+    border: 2px solid rgb(40, 67, 83);
 }

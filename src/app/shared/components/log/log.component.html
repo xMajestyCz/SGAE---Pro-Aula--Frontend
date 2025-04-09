@@ -1,0 +1,29 @@
+<ion-header *ngIf="showHeader">
+  <ion-toolbar color="new4">
+    <ion-buttons slot="end">
+      <ion-button color="dark" (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Proceso</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-item color="new3">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="6">
+        <ion-select label="Proceso" label-placement="floating" fill="outline" [disabled]="!isInModal" [(ngModel)]="proceso" (ionChange)="onSelectChange()">
+          <ion-select-option value="Registrar">Registrar</ion-select-option>
+          <ion-select-option value="Consultar">Consultar</ion-select-option>
+          <ion-select-option value="Modificar">Modificar</ion-select-option>
+          <ion-select-option value="Eliminar">Eliminar</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="6">
+        <ion-select label="Rol" label-placement="floating" fill="outline" [disabled]="!isInModal" [(ngModel)]="rol" (ionChange)="onSelectChange()">
+          <ion-select-option value="estudiante">Estudiante</ion-select-option>
+          <ion-select-option value="docente">Docente</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>
+<app-log-user [isInModal]="isInModal" [hidden]="!isInModal" [titulo]="titulo"></app-log-user>

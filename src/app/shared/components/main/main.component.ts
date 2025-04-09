@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { LogComponent } from '../log/log.component';
 
 @Component({
   selector: 'app-main',
@@ -7,10 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
   standalone: false
 })
 export class MainComponent  implements OnInit {
-  @Input() label: string = '';
+  @Input() ionLabel1 = '';
+  @Input() ionLabel2 = '';
+  @Input() ionLabel3 = '';
+  @Input() ionCardTitle1 = '';
+  @Input() ionCardTitle2 = '';
+  @Input() ionCardTitle3 = '';
   isLoaded = false;
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.cargarDatos();
@@ -19,5 +26,16 @@ export class MainComponent  implements OnInit {
   async cargarDatos() {
     await new Promise(resolve => setTimeout(resolve, 1500));
     this.isLoaded = true;
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: LogComponent,
+      cssClass: 'custom-modal',
+      componentProps: {
+        isInModal: true
+      }
+    });
+    modal.present();
   }
 }

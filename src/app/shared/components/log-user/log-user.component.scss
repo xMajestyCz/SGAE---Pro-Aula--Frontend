@@ -1,0 +1,33 @@
+form{
+    height: 80vh;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background-color: #AFC2BB;
+}
+ion-item:first-child, h2{
+    justify-self: center;
+}
+h2, h4{
+    color: #001239;
+}
+ion-input, ion-select {
+    --background: #F29F95;
+    --placeholder-color: #274755;
+    --placeholder-opacity: 0.8;
+    border-radius: 5px;
+    border: 1.5px solid #274755;
+    color: #274755;
+}
+ion-item{
+    border-bottom: 1.5px solid #274755;
+}
+ion-button{
+    border: 1.5px solid #274755;
+    border-radius: 1rem;
+    max-width: 400px;
+}
+ion-button[_ngcontent-ng-c1817128311]{
+    min-width: 400px;
+    justify-self: center;
+    margin: 1rem;
+}

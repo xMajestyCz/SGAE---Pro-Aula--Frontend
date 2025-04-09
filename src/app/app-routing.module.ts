@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'forget-password',
     loadChildren: () => import('./pages/forget-password/forget-password.module').then( m => m.ForgetPasswordPageModule)
   },
+  {
+    path: 'secretary',
+    loadChildren: () => import('./pages/secretary/secretary.module').then( m => m.SecretaryPageModule)
+  },
 
 
 ];
