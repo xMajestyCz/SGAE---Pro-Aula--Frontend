@@ -1,20 +1,24 @@
-<ion-content class="login-container">
-  <div class="login-wrapper">
+<ion-card-content class="card-content">
 
-    <!-- Sección de Imagen -->
+  <div class="card-layout">
+
+    <ion-title class="card-title">
+      <ion-card-title >Iniciar Sesión</ion-card-title>
+      <ion-card-subtitle >Bienvenido de nuevo</ion-card-subtitle>
+    </ion-title>
+
+
     <div class="image-section">
       <img src="assets/img/sentada2.png" alt="Login Image">
     </div>
 
-    <!-- Sección de Login -->
-    <div class="login-section">
+    <div class="form-section">
       <form [formGroup]="loginForm" novalidate class="login-box">
-        <img src="assets/logo.png" alt="Logo" class="logo">
-        <h2>Autenticación</h2>
-
+        <ion-title class="form-title">Autenticacion</ion-title>
+      
         <ion-item>
           <ion-label position="floating">Usuario:</ion-label>
-          <ion-input formControlName="nombreUsuario" type="text" placeholder="Ingrese el usuario"></ion-input>
+          <ion-input formControlName="nombreUsuario" placeholder="Ingrese el usuario"></ion-input>
         </ion-item>
 
         <ion-item>
@@ -22,10 +26,14 @@
           <ion-input formControlName="password" type="password" placeholder="Ingrese la contraseña"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="onlogin()">Ingresar</ion-button>
-        <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
+        <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="login()">
+          Ingresar
+        </ion-button>
+        <ion-footer>
+          <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
+        </ion-footer>
       </form>
-    </div>
 
+    </div>
   </div>
-</ion-content>
+</ion-card-content>

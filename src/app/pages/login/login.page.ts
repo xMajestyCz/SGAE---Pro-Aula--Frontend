@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -9,21 +11,66 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
+  backendUrl = "https://dummyjson.com/auth/login"
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private http: HttpClient,
+    private navCtrl: NavController,
+    private fb: FormBuilder
+
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      nombreUsuario: ['', Validators.required], // Coincide con el HTML
-      password: ['', Validators.required]
+      nombreUsuario: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
-  onlogin() {
+  login() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
+      const loginData = this.loginForm.value;
+
+      this.http.post(this.backendUrl, loginData).subscribe({
+        next: (response: any) => {
+          const token = response.token;
+          localStorage.setItem('authToken', token);
+          //rutas a las paginas de la app aca
+
+        },
+        error: (error) => {
+          console.error('Error de inicio de sesión:', error);
+          let errorMessage = 'Error al iniciar sesión';
+
+          if (error.status === 400) {
+            errorMessage = 'fallo en el incio de sesion. Por favor, verifica tu usuario y contraseña.';
+          } else if (error.status === 0) {
+            errorMessage = 'No se pudo conectar al servidor. Por favor, intenta de nuevo más tarde.';
+          }
+
+          this.mostrarAlerta('Error de inicio de sesión', errorMessage);
+        },
+        complete: () => {
+          console.log('Proceso de inicio de sesión completado.');
+          console.log('Token almacenado en localStorage:', localStorage.getItem('authToken'));
+        }
+      });
+    } else {
+      this.mostrarAlerta('Error', 'Por favor, completa todos los campos.');
     }
   }
+
+
+  mostrarAlerta(titulo: string, mensaje: string) {
+    const alert = document.createElement('ion-alert');
+    alert.header = titulo;
+    alert.message = mensaje;
+    alert.buttons = ['OK'];
+    document.body.appendChild(alert);
+    return alert.present();
+  }
 }
+
+
 
 
