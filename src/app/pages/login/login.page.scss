@@ -84,6 +84,7 @@
     border-radius: 8px;
     padding: 12px 15px;
     font-size: 1rem;
+    padding-right: 40px; /* Añade espacio a la derecha para el icono */
   }
 
   ion-button {
@@ -114,6 +115,18 @@
     text-decoration: underline;
     color: #ED9B91;
   }
+
+  /* Estilos para el icono del ojo */
+  ion-icon[slot="end"] {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    color: #757575;
+    z-index: 10;
+  }
 }
 
 .image-section {
@@ -127,7 +140,6 @@
   border-radius: 20px ;
   overflow: hidden;
 
-  
 
   img {
     max-width: 100%;

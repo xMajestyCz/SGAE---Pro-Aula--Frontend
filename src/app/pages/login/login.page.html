@@ -20,10 +20,19 @@
           <ion-label position="floating">Usuario:</ion-label>
           <ion-input formControlName="username" placeholder="Ingrese el usuario"></ion-input>
         </ion-item>
-
+        
         <ion-item>
           <ion-label position="floating">Contraseña:</ion-label>
-          <ion-input formControlName="password" type="password" placeholder="Ingrese la contraseña"></ion-input>
+          <ion-input
+            formControlName="password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Ingrese la contraseña"
+            class="password-input" ></ion-input>
+          <ion-icon
+            slot="end"
+            [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+            (click)="togglePasswordVisibility()"
+            style="cursor: pointer; padding-right: 10px;" ></ion-icon>
         </ion-item>
 
         <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="login()">

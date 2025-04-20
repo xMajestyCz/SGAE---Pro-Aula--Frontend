@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   backendUrl = "https://jesus-castro10-sgae-pro-aula-backend.onrender.com/api/auth/login/"
+  showPassword = false;
 
   constructor(
     private http: HttpClient,
@@ -61,6 +62,10 @@ export class LoginPage implements OnInit {
     }
   }
   
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
 
   mostrarAlerta(titulo: string, mensaje: string) {
