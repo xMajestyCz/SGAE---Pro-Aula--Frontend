@@ -11,7 +11,7 @@ import { NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
-  backendUrl = "https://dummyjson.com/auth/login"
+  backendUrl = "https://jesus-castro10-sgae-pro-aula-backend.onrender.com/api/auth/login/"
 
   constructor(
     private http: HttpClient,
