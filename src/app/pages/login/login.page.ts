@@ -22,8 +22,9 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      nombreUsuario: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
+    
     });
   }
 
@@ -33,10 +34,10 @@ export class LoginPage implements OnInit {
 
       this.http.post(this.backendUrl, loginData).subscribe({
         next: (response: any) => {
-          const token = response.token;
-          localStorage.setItem('authToken', token);
+          const accessToken = response.access;
+          localStorage.setItem('authToken', accessToken); 
           //rutas a las paginas de la app aca
-
+          console.log('Proceso de inicio de sesión completado.');
         },
         error: (error) => {
           console.error('Error de inicio de sesión:', error);
@@ -59,6 +60,7 @@ export class LoginPage implements OnInit {
       this.mostrarAlerta('Error', 'Por favor, completa todos los campos.');
     }
   }
+  
 
 
   mostrarAlerta(titulo: string, mensaje: string) {
