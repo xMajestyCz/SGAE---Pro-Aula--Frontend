@@ -1,48 +1,40 @@
-<ion-card-content class="card-content">
-
-  <div class="card-layout">
-
-    <ion-title class="card-title">
-      <ion-card-title >Iniciar Sesión</ion-card-title>
-      <ion-card-subtitle >Bienvenido de nuevo</ion-card-subtitle>
-    </ion-title>
-
-
-    <div class="image-section">
-      <img src="assets/img/sentada2.png" alt="Login Image">
-    </div>
-
-    <div class="form-section">
-      <form [formGroup]="loginForm" novalidate class="login-box">
-        <ion-title class="form-title">Autenticacion</ion-title>
+<ion-content>
+  <form [formGroup]="loginForm" novalidate class="login-box">
+    <ion-card>
       
+  <ion-header>
+    <ion-card-title>Iniciar Sesión</ion-card-title>
+    <ion-card-subtitle>Bienvenido de nuevo</ion-card-subtitle>
+
+  </ion-header>
+      <ion-card-content>
+        <!-- <ion-img src="assets/img/sentada2.png"></ion-img> -->
+        <ion-card-header>
+        <ion-title class="form-title">Autenticacion</ion-title>
+        <ion-img src="assets/img/student.png"></ion-img>
+      </ion-card-header>
+        <div>
         <ion-item>
-          <ion-label position="floating">Usuario:</ion-label>
-          <ion-input formControlName="username" placeholder="Ingrese el usuario"></ion-input>
+          <ion-icon slot="start" name="person-outline"class="icon-inside"></ion-icon>
+          <ion-input formControlName="username" placeholder="Nombre de usuario"></ion-input>
         </ion-item>
-        
+
         <ion-item>
-          <ion-label position="floating">Contraseña:</ion-label>
-          <ion-input
-            formControlName="password"
-            [type]="showPassword ? 'text' : 'password'"
-            placeholder="Ingrese la contraseña"
-            class="password-input" ></ion-input>
-          <ion-icon
-            slot="end"
-            [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
-            (click)="togglePasswordVisibility()"
-            style="cursor: pointer; padding-right: 10px;" ></ion-icon>
+          <ion-icon slot="start" name="lock-closed-outline"class="icon-inside"></ion-icon>
+          <ion-input formControlName="password" icon [type]="showPassword ? 'text' : 'password'"
+            placeholder="contraseña" class="password-input"></ion-input>
+          <ion-icon slot="end" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+            (click)="togglePasswordVisibility()" style="cursor: pointer; padding-right: 10px;"></ion-icon>
         </ion-item>
 
         <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="login()">
           Ingresar
         </ion-button>
+      </div>
         <ion-footer>
           <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
         </ion-footer>
-      </form>
-
-    </div>
-  </div>
-</ion-card-content>
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
