@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendUrl: 'https://jesus-castro10-sgae-pro-aula-backend.onrender.com/api/auth/login/'
 };
 
 /*
