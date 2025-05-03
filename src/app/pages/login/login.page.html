@@ -1,36 +1,42 @@
 <ion-content>
   <form [formGroup]="loginForm" novalidate class="login-box">
     <ion-card>
-      
-  <ion-header>
-    <ion-card-title>Iniciar Sesión</ion-card-title>
-    <ion-card-subtitle>Bienvenido de nuevo</ion-card-subtitle>
 
-  </ion-header>
+      <ion-header>
+        <ion-card-title>Iniciar Sesión</ion-card-title>
+        <ion-card-subtitle>Bienvenido de nuevo</ion-card-subtitle>
+      </ion-header>
+
       <ion-card-content>
-        <!-- <ion-img src="assets/img/sentada2.png"></ion-img> -->
         <ion-card-header>
-        <ion-title class="form-title">Autenticacion</ion-title>
-        <ion-img src="assets/img/student.png"></ion-img>
-      </ion-card-header>
+          <ion-title class="form-title">Autenticación</ion-title>
+          <ion-img src="assets/img/student.png"></ion-img>
+        </ion-card-header>
+
         <div>
-        <ion-item>
-          <ion-icon slot="start" name="person-outline"class="icon-inside"></ion-icon>
-          <ion-input formControlName="username" placeholder="Nombre de usuario"></ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="person-outline" class="icon-inside"></ion-icon>
+            <ion-input formControlName="username" placeholder="Nombre de usuario" aria-label="Nombre de usuario"></ion-input>
+          </ion-item>
 
-        <ion-item>
-          <ion-icon slot="start" name="lock-closed-outline"class="icon-inside"></ion-icon>
-          <ion-input formControlName="password" icon [type]="showPassword ? 'text' : 'password'"
-            placeholder="contraseña" class="password-input"></ion-input>
-          <ion-icon slot="end" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
-            (click)="togglePasswordVisibility()" style="cursor: pointer; padding-right: 10px;"></ion-icon>
-        </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="lock-closed-outline" class="icon-inside"></ion-icon>
+            <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'"
+              placeholder="Contraseña" class="password-input" aria-label="Contraseña"></ion-input>
+            <ion-icon slot="end" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+              (click)="togglePasswordVisibility()" style="cursor: pointer; padding-right: 10px;"></ion-icon>
+          </ion-item>
+          <p *ngIf="loginForm.controls['password'].hasError('incorrect')" class="error-text">
+             Contraseña incorrecta. Inténtalo de nuevo.
+          </p>
+          
 
-        <ion-button expand="block" class="primary" [disabled]="!loginForm.valid" (click)="login()">
-          Ingresar
-        </ion-button>
-      </div>
+          <ion-button expand="block" class="primary" [disabled]="!loginForm.valid || isLoading" (click)="login()">
+            <ion-spinner *ngIf="isLoading"></ion-spinner>
+            <span *ngIf="!isLoading">Ingresar</span>
+          </ion-button>
+        </div>
+
         <ion-footer>
           <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
         </ion-footer>

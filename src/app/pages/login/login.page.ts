@@ -1,7 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/core/Services/auth.service';
+import { LoggerService } from 'src/app/core/Services/logger.service';
+import { SpinnerService } from 'src/app/core/Services/spinner.service';
+import { ToastService } from 'src/app/core/Services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -11,73 +14,58 @@ import { NavController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   loginForm!: FormGroup;
-  backendUrl = "https://jesus-castro10-sgae-pro-aula-backend.onrender.com/api/auth/login/"
   showPassword = false;
+  isLoading = false;
 
   constructor(
-    private http: HttpClient,
-    private navCtrl: NavController,
-    private fb: FormBuilder
-
-  ) { }
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toastService: ToastService,
+    private spinnerService: SpinnerService,
+    private loggerService: LoggerService,
+    private navCtrl: NavController
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required])
-    
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
   login() {
-    if (this.loginForm.valid) {
-      const loginData = this.loginForm.value;
-
-      this.http.post(this.backendUrl, loginData).subscribe({
-        next: (response: any) => {
-          const accessToken = response.access;
-          localStorage.setItem('authToken', accessToken); 
-          //rutas a las paginas de la app aca
-          console.log('Proceso de inicio de sesión completado.');
-        },
-        error: (error) => {
-          console.error('Error de inicio de sesión:', error);
-          let errorMessage = 'Error al iniciar sesión';
-
-          if (error.status === 400) {
-            errorMessage = 'fallo en el incio de sesion. Por favor, verifica tu usuario y contraseña.';
-          } else if (error.status === 0) {
-            errorMessage = 'No se pudo conectar al servidor. Por favor, intenta de nuevo más tarde.';
-          }
-
-          this.mostrarAlerta('Error de inicio de sesión', errorMessage);
-        },
-        complete: () => {
-          console.log('Proceso de inicio de sesión completado.');
-          console.log('Token almacenado en localStorage:', localStorage.getItem('authToken'));
-        }
-      });
-    } else {
-      this.mostrarAlerta('Error', 'Por favor, completa todos los campos.');
+    if (this.loginForm.invalid) {
+      this.toastService.error('Por favor, completa todos los campos.');
+      return;
     }
+
+    this.isLoading = true;
+    this.spinnerService.show();
+
+    this.authService.login(this.loginForm.value).subscribe({
+      next: response => {
+        localStorage.setItem('authToken', response.access);
+        this.toastService.success('Inicio de sesión exitoso.');
+        this.loggerService.logInfo('Usuario autenticado con éxito.');
+        this.navCtrl.navigateRoot('/home'); 
+      },
+      error: error => {
+        if (error.status === 400) {
+          this.loginForm.controls['password'].setErrors({ incorrect: true }); // Marcar campo como inválido
+          this.toastService.error('Usuario o contraseña incorrectos.');
+          this.loggerService.logWarning('Intento de inicio de sesión fallido.');
+        } else {
+          this.toastService.error('Error de conexión con el servidor.');
+        }
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.spinnerService.hide();
+      }
+    });
   }
-  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-
-
-  mostrarAlerta(titulo: string, mensaje: string) {
-    const alert = document.createElement('ion-alert');
-    alert.header = titulo;
-    alert.message = mensaje;
-    alert.buttons = ['OK'];
-    document.body.appendChild(alert);
-    return alert.present();
-  }
 }
-
-
-
-
