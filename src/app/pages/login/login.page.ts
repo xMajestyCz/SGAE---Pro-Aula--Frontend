@@ -44,10 +44,38 @@ export class LoginPage implements OnInit {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
+        const role=response.role
+        
         localStorage.setItem('authToken', response.access);
+        localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.');
-        this.navCtrl.navigateRoot('/home'); 
+       
+        switch (role) {
+          // case 'admin':
+          //   this.navCtrl.navigateRoot('/admin-home'); 
+          //   break;
+          case 'student':
+            this.navCtrl.navigateRoot('/student'); 
+            break;
+            case 'teacher':
+              this.navCtrl.navigateRoot('/teacher'); 
+              break;
+          case 'secretary':
+            this.navCtrl.navigateRoot('/secretary'); 
+            break;
+          // case 'academic_coordinator':
+          //   this.navCtrl.navigateRoot('/academic-coordinator-home');
+          //   break;
+          // case 'director':
+          //   this.navCtrl.navigateRoot('/director-home');
+          //   break;
+          default:
+            this.navCtrl.navigateRoot('/login'); 
+            break;
+        }
+
+
       },
       error: error => {
         if (error.status === 400) {
