@@ -53,7 +53,7 @@ export class LoginPage implements OnInit {
        
         switch (role) {
           case 'admin':
-            this.navCtrl.navigateRoot('/admin-home'); 
+            this.navCtrl.navigateRoot('/admin'); 
             break;
           case 'student':
             this.navCtrl.navigateRoot('/student'); 
