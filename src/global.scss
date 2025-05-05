@@ -69,6 +69,34 @@ ion-app{
 	--ion-color-new4-contrast-rgb: 0,0,0;
 	--ion-color-new4-shade: #648080;
 	--ion-color-new4-tint: #809d9d;
+	
+	--ion-color-new5: #E6DEC4;
+	--ion-color-new5-rgb: 230,222,196;
+	--ion-color-new5-contrast: #000000;
+	--ion-color-new5-contrast-rgb: 0,0,0;
+	--ion-color-new5-shade: #cac3ac;
+	--ion-color-new5-tint: #e9e1ca;
+
+	--ion-color-new6: #EEE2C7;
+	--ion-color-new6-rgb: 238,226,199;
+	--ion-color-new6-contrast: #000000;
+	--ion-color-new6-contrast-rgb: 0,0,0;
+	--ion-color-new6-shade: #d1c7af;
+	--ion-color-new6-tint: #f0e5cd;
+
+	--ion-color-new7: #F8EED3;
+	--ion-color-new7-rgb: 248,238,211;
+	--ion-color-new7-contrast: #000000;
+	--ion-color-new7-contrast-rgb: 0,0,0;
+	--ion-color-new7-shade: #dad1ba;
+	--ion-color-new7-tint: #f9f0d7;
+	
+	--ion-color-new8: #FC8671;
+	--ion-color-new8-rgb: 252,134,113;
+	--ion-color-new8-contrast: #FEF5DF;
+	--ion-color-new8-contrast-rgb: 0,0,0;
+	--ion-color-new8-shade: #de7663;
+	--ion-color-new8-tint: #fc927f;
 }
 .ion-color-new {
 	--ion-color-base: var(--ion-color-new);
@@ -102,6 +130,38 @@ ion-app{
 	--ion-color-shade: var(--ion-color-new4-shade);
 	--ion-color-tint: var(--ion-color-new4-tint);
 }
+.ion-color-new5 {
+	--ion-color-base: var(--ion-color-new5);
+	--ion-color-base-rgb: var(--ion-color-new5-rgb);
+	--ion-color-contrast: var(--ion-color-new5-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new5-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new5-shade);
+	--ion-color-tint: var(--ion-color-new5-tint);
+}
+.ion-color-new6 {
+	--ion-color-base: var(--ion-color-new6);
+	--ion-color-base-rgb: var(--ion-color-new6-rgb);
+	--ion-color-contrast: var(--ion-color-new6-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new6-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new6-shade);
+	--ion-color-tint: var(--ion-color-new6-tint);
+}
+.ion-color-new7 {
+	--ion-color-base: var(--ion-color-new7);
+	--ion-color-base-rgb: var(--ion-color-new7-rgb);
+	--ion-color-contrast: var(--ion-color-new7-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new7-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new7-shade);
+	--ion-color-tint: var(--ion-color-new7-tint);
+}
+.ion-color-new8 {
+	--ion-color-base: var(--ion-color-new8);
+	--ion-color-base-rgb: var(--ion-color-new8-rgb);
+	--ion-color-contrast: var(--ion-color-new8-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new8-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new8-shade);
+	--ion-color-tint: var(--ion-color-new8-tint);
+}
 ion-modal>.ion-page {
     background-color: #AFC2BB;
 }
@@ -132,4 +192,7 @@ ion-modal.custom-modal::part(content) {
 		width: 100%;
 		height: 100%;
 	}
+}
+#shadow-root .scroll-y{
+	padding: 0;
 }

@@ -1,0 +1,36 @@
+*{
+    color: #0C364B;
+}
+.main-menu{
+    --background: #8DB2A9;
+}
+.main-menu-center{
+    align-content: center;
+    height: 100%;
+}
+.list-md.list-inset{
+    padding: 0;
+    margin: 0;
+}
+ion-item:nth-child(2){
+    background-color: #0C364B;
+}
+.item .sc-ion-label-md-h{
+    color: #0C364B;
+    font-size: 1.3rem;
+    font-family: "Ubuntu", sans-serif;
+}
+ion-label{
+    font-size: 1.3rem;
+}
+.flex-top{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.flex-bottom{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}

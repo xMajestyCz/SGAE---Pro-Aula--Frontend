@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'secretary',
     loadChildren: () => import('./pages/secretary/secretary.module').then( m => m.SecretaryPageModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
+  },
 
 
 ];

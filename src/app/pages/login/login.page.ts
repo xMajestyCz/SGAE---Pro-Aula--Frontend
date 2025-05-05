@@ -38,48 +38,26 @@ export class LoginPage implements OnInit {
       this.toastService.error('Por favor, completa todos los campos.');
       return;
     }
-
+  
     this.isLoading = true;
     this.spinnerService.show();
-
+  
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
-        const role=response.role
-        
+        // Guardar token de acceso
         localStorage.setItem('authToken', response.access);
-        localStorage.setItem('UserRole',role)
+        
+        // this.navCtrl.navigateRoot('/admin');
+        
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.');
-       
-        switch (role) {
-          // case 'admin':
-          //   this.navCtrl.navigateRoot('/admin-home'); 
-          //   break;
-          case 'student':
-            this.navCtrl.navigateRoot('/student'); 
-            break;
-            case 'teacher':
-              this.navCtrl.navigateRoot('/teacher'); 
-              break;
-          case 'secretary':
-            this.navCtrl.navigateRoot('/secretary'); 
-            break;
-          // case 'academic_coordinator':
-          //   this.navCtrl.navigateRoot('/academic-coordinator-home');
-          //   break;
-          // case 'director':
-          //   this.navCtrl.navigateRoot('/director-home');
-          //   break;
-          default:
-            this.navCtrl.navigateRoot('/login'); 
-            break;
-        }
-
-
       },
       error: error => {
+        this.isLoading = false;
+        this.spinnerService.hide();
+        
         if (error.status === 400) {
-          this.loginForm.controls['password'].setErrors({ incorrect: true }); // Marcar campo como inválido
+          this.loginForm.controls['password'].setErrors({ incorrect: true });
           this.toastService.error('Usuario o contraseña incorrectos.');
           this.loggerService.logWarning('Intento de inicio de sesión fallido.');
         } else {

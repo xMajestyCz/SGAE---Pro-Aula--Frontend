@@ -1,6 +1,6 @@
 
 <div *ngIf="isLoaded">
-  <ion-segment value="first" color="new">
+  <ion-segment value="first" color="new" [scrollable]="true">
     <ion-segment-button value="first" content-id="first">
       <ion-label>Cuenta</ion-label>
     </ion-segment-button>
@@ -88,15 +88,12 @@
               </ion-card>
             </ion-col>
             <ion-col>
-              <ion-card expand="block" (click)="openModal()" class="log">
+              <ion-card expand="block" class="log">
                 <ion-card-header>
                   <ion-card-title>{{ ionCardTitle3 }}</ion-card-title>
                 </ion-card-header>
               
                 <ion-card-content >
-                  <div class="preview-wrapper">
-                    <app-log [isInModal]="false"></app-log>
-                  </div>
                 </ion-card-content>
               </ion-card>
             </ion-col>

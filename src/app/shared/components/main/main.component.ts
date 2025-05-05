@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { LogComponent } from '../log/log.component';
 
 @Component({
   selector: 'app-main',
@@ -26,16 +25,5 @@ export class MainComponent  implements OnInit {
   async cargarDatos() {
     await new Promise(resolve => setTimeout(resolve, 1500));
     this.isLoaded = true;
-  }
-
-  async openModal() {
-    const modal = await this.modalCtrl.create({
-      component: LogComponent,
-      cssClass: 'custom-modal',
-      componentProps: {
-        isInModal: true
-      }
-    });
-    modal.present();
   }
 }
