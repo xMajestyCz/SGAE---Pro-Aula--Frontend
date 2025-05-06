@@ -1,12 +1,24 @@
 ion-content {
   display: flex;
-  align-items: center;
   justify-content: center;
-  min-height: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-  background: none;
+  align-items: center;
+  padding: 16px;
+  min-height: 100vh;
+  --background:#B2C8BE;
+
+
 }
+
+.login-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  margin: 0 auto;
+}
+
 ion-card {
   display: flex;
   flex-direction: column;
@@ -14,14 +26,10 @@ ion-card {
   align-items: center;
   border-radius: 20px;
   width: 100%;
-  max-width: 500px;
-  // height: 95%;
-  margin: 0 auto;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  // background-color: #F8EFE0;
   overflow: hidden;
-
 }
+
 
 ion-header {
   grid-area: header;
@@ -55,13 +63,13 @@ ion-card-header {
   color: #555;
 }
 ion-img {
-  width: 100px; // Ajusta el tamaño según tus necesidades
+  width: 100px; 
   height: 100px;
-  border-radius: 50%; // Esto crea bordes redondeados para la imagen
-  object-fit: cover; // Asegura que la imagen se ajuste dentro del área especificada
-  display: block; // Asegura que la imagen se centre correctamente si se aplica margen automático
-  margin: auto; // Centra la imagen tanto horizontal como verticalmente
-  overflow: hidden; // Centra la imagen horizontalmente
+  border-radius: 50%; 
+  object-fit: cover; 
+  display: block; 
+  margin: auto; 
+  overflow: hidden;
 }
 ion-card-content {
   grid-area: form;
@@ -84,7 +92,7 @@ ion-card-content {
   }
 
   ion-item{
-    position: relative; /* Posiciona los íconos dentro del campo de texto */
+    position: relative;
    margin-bottom: 10px;
   }
   ion-input {
@@ -98,7 +106,7 @@ ion-card-content {
     border-radius: 8px;
     font-size: 1rem;
     padding-right: 30px;
-    padding-left: 30px; /* Añade espacio a la derecha para el icono */
+    padding-left: 30px; 
   }
 
   ion-button {
@@ -142,9 +150,9 @@ ion-card-content {
     left: 20px; 
     top: 18%;
     transform: translateY(-50%); 
-    font-size: 22px; /* Tamaño del ícono */
+    font-size: 22px; 
     color: #757575;
-    pointer-events: none; /* Evita que el ícono interfiera con la interacción */
+    pointer-events: none; 
   }
   
 }
