@@ -50,30 +50,25 @@ export class LoginPage implements OnInit {
         localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.');
+        this.navCtrl.navigateRoot('/admin'); 
        
-        switch (role) {
-          case 'admin':
-            this.navCtrl.navigateRoot('/admin'); 
-            break;
-          case 'student':
-            this.navCtrl.navigateRoot('/student'); 
-            break;
-            case 'teacher':
-              this.navCtrl.navigateRoot('/teacher'); 
-              break;
-          case 'secretary':
-            this.navCtrl.navigateRoot('/secretary'); 
-            break;
-          // case 'academic_coordinator':
-          //   this.navCtrl.navigateRoot('/academic-coordinator-home');
-          //   break;
-          // case 'director':
-          //   this.navCtrl.navigateRoot('/director-home');
-          //   break;
-          default:
-            this.navCtrl.navigateRoot('/login'); 
-            break;
-        }
+        // switch (role) {
+        //   case 'admin':
+        //     this.navCtrl.navigateRoot('/admin'); 
+        //     break;
+        //   case 'student':
+        //     this.navCtrl.navigateRoot('/student'); 
+        //     break;
+        //     case 'teacher':
+        //       this.navCtrl.navigateRoot('/teacher'); 
+        //       break;
+        //   case 'secretary':
+        //     this.navCtrl.navigateRoot('/secretary'); 
+        //     break;
+        //   default:
+        //     this.navCtrl.navigateRoot('/login'); 
+        //     break;
+        // }
 
 
       },

@@ -13,7 +13,6 @@
           <ion-img src="assets/img/student.png"></ion-img>
         </ion-card-header>
 
-        <div>
           <ion-item>
             <ion-icon slot="start" name="person-outline" class="icon-inside"></ion-icon>
             <ion-input formControlName="username" placeholder="Nombre de usuario" aria-label="Nombre de usuario"></ion-input>
@@ -35,7 +34,6 @@
             <ion-spinner *ngIf="isLoading"></ion-spinner>
             <span *ngIf="!isLoading">Ingresar</span>
           </ion-button>
-        </div>
 
         <ion-footer>
           <a [routerLink]="'/forget-password'">¿Olvidaste tu contraseña?</a>
