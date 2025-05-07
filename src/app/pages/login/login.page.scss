@@ -1,23 +1,15 @@
 ion-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  --background: #B2C8BE;
   padding: 16px;
-  min-height: 100vh;
-  flex-direction: column;
-  --background:#B2C8BE;
   overflow: hidden;
-  
-
 }
 
 .login-box {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 500px;
-  height: 100%;
+  flex-direction: column;
   margin: 0 auto;
 }
 
@@ -27,7 +19,7 @@ ion-card {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  width: 100%;
+  width: 500px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
