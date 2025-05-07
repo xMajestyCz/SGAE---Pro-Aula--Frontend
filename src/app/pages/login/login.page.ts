@@ -45,12 +45,11 @@ export class LoginPage implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
         const role=response.user_type;
-        localStorage.setItem('authToken', response.access);
         localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.'); 
        
-        console.log(role)
+        console.log('response:',role)
         switch (role) {
           case 'admin':
             this.navCtrl.navigateRoot('/admin'); 
