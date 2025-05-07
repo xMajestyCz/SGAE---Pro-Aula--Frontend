@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.'); 
        
+        console.log(role)
         switch (role) {
           case 'admin':
             this.navCtrl.navigateRoot('/admin'); 
