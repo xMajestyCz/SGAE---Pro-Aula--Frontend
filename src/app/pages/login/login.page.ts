@@ -44,37 +44,36 @@ export class LoginPage implements OnInit {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
-        const role=response.role
+        const role=response.user_type;
         
         localStorage.setItem('authToken', response.access);
         localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
-        this.loggerService.logInfo('Usuario autenticado con éxito.');
-        this.navCtrl.navigateRoot('/admin'); 
+        this.loggerService.logInfo('Usuario autenticado con éxito.'); 
        
-        // switch (role) {
-        //   case 'admin':
-        //     this.navCtrl.navigateRoot('/admin'); 
-        //     break;
-        //   case 'student':
-        //     this.navCtrl.navigateRoot('/student'); 
-        //     break;
-        //     case 'teacher':
-        //       this.navCtrl.navigateRoot('/teacher'); 
-        //       break;
-        //   case 'secretary':
-        //     this.navCtrl.navigateRoot('/secretary'); 
-        //     break;
-        //   default:
-        //     this.navCtrl.navigateRoot('/login'); 
-        //     break;
-        // }
+        switch (role) {
+          case 'admin':
+            this.navCtrl.navigateRoot('/admin'); 
+            break;
+          case 'student':
+            this.navCtrl.navigateRoot('/student'); 
+            break;
+            case 'teacher':
+              this.navCtrl.navigateRoot('/teacher'); 
+              break;
+          case 'secretary':
+            this.navCtrl.navigateRoot('/secretary'); 
+            break;
+          default:
+            this.navCtrl.navigateRoot('/login'); 
+            break;
+        }
 
 
       },
       error: error => {
         if (error.status === 400) {
-          this.loginForm.controls['password'].setErrors({ incorrect: true }); // Marcar campo como inválido
+          this.loginForm.controls['password'].setErrors({ incorrect: true }); 
           this.toastService.error('Usuario o contraseña incorrectos.');
           this.loggerService.logWarning('Intento de inicio de sesión fallido.');
         } else {
