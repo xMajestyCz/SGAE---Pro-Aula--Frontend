@@ -44,10 +44,9 @@ export class LoginPage implements OnInit {
   
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
-        // Guardar token de acceso
         localStorage.setItem('authToken', response.access);
         
-        // this.navCtrl.navigateRoot('/admin');
+        this.navCtrl.navigateRoot('/admin');
         
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.');
