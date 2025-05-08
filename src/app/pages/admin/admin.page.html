@@ -42,6 +42,12 @@
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>Menú principal</ion-title>
+        <ion-button slot="end" color="new5" (click)="confirmLogout()" [disabled]="isLoggingOut">
+          <div class="logout-button-content">
+            <ion-icon name="log-out-outline" size="large" *ngIf="!isLoggingOut"></ion-icon>
+            <ion-spinner name="crescent" *ngIf="isLoggingOut"></ion-spinner>
+          </div>
+        </ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding main-menu">

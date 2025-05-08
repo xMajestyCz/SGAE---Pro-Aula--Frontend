@@ -18,7 +18,7 @@ ion-label{
     color: #284353;
     overflow: visible;
 }
-#second{
+ion-segment-content{
     height: 80vh;
     overflow-y: auto;
 }
@@ -43,6 +43,7 @@ ion-card{
     max-height: 404px;
     border-radius: 1rem;
     transition: all .3s ease;
+    justify-items: center;
 }
 ion-card:hover{
     transform: scale(1.01);

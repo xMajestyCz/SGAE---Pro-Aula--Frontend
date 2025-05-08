@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reportar Problema</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input 
+      type="text" 
+      placeholder="Título del problema"
+      [(ngModel)]="reportData.title">
+    </ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-textarea  
+      placeholder="Describe el problema aquí"
+      [(ngModel)]="reportData.description"
+      rows="6">
+    </ion-textarea>
+  </ion-item>
+  
+  <ion-button 
+    expand="block" 
+    fill="clear" 
+    shape="round"
+    (click)="submitReport()">
+    Enviar Reporte
+  </ion-button>
+</ion-content>

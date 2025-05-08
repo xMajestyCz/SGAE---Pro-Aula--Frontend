@@ -1,6 +1,6 @@
 
 <div *ngIf="isLoaded">
-  <ion-segment value="first" color="new" [scrollable]="true">
+  <ion-segment value="second" color="new" [scrollable]="true">
     <ion-segment-button value="first" content-id="first">
       <ion-label>Cuenta</ion-label>
     </ion-segment-button>
@@ -20,26 +20,47 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-            <ion-card>
+            <ion-card (click)="openModal()">
               <ion-card-header>
-                <ion-card-title>Cambiar contraseña</ion-card-title>
+                <ion-card-title>Información personal</ion-card-title>
               </ion-card-header>
             
               <ion-card-content>
-                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-icon name="information-circle" size="large" color="dark"></ion-icon>
               </ion-card-content>
             </ion-card>
           </ion-col>
           <ion-col>
             <ion-card>
               <ion-card-header>
-                <ion-card-title>Cerrar sesión</ion-card-title>
+                <ion-card-title>Cambiar contraseña</ion-card-title>
               </ion-card-header>
             
               <ion-card-content>
-                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+                <ion-icon name="keypad" size="large" color="dark"></ion-icon>
               </ion-card-content>
             </ion-card>
+          </ion-col>
+          <ion-col>
+          <ion-card (click)="confirmLogout()" [disabled]="isLoadingLogout">
+            <ion-card-header>
+              <ion-card-title>Cerrar sesión</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="logout-content">
+                <ion-icon 
+                  name="log-out-outline" 
+                  size="large" 
+                  color="dark" 
+                  *ngIf="!isLoadingLogout">
+                </ion-icon>
+                <ion-spinner 
+                  name="crescent" 
+                  *ngIf="isLoadingLogout">
+                </ion-spinner>
+              </div>
+            </ion-card-content>
+          </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -55,22 +76,11 @@
           <ion-col>
             <ion-card>
               <ion-card-header>
-                <ion-card-title>Información</ion-card-title>
-              </ion-card-header>
-            
-              <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
                 <ion-card-title>{{ ionCardTitle1 }}</ion-card-title>
               </ion-card-header>
             
               <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
+                
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -83,7 +93,6 @@
                 </ion-card-header>
               
                 <ion-card-content>
-                  Here's a small text description for the card content. Nothing more, nothing less.
                 </ion-card-content>
               </ion-card>
             </ion-col>
@@ -110,7 +119,7 @@
               </ion-card-header>
             
               <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
+                <ion-icon name="help-circle" size="large" color="dark"></ion-icon>
               </ion-card-content>
             </ion-card>
             <ion-card>
@@ -119,16 +128,15 @@
               </ion-card-header>
             
               <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
+                <ion-icon name="mail" size="large" color="dark"></ion-icon>
               </ion-card-content>
             </ion-card>
-            <ion-card>
+            <ion-card (click)="openReportModal()">
               <ion-card-header>
                 <ion-card-title>Reportar problema</ion-card-title>
               </ion-card-header>
-            
               <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
+                <ion-icon name="bug" size="large" color="dark"></ion-icon>
               </ion-card-content>
             </ion-card>
           </ion-col>

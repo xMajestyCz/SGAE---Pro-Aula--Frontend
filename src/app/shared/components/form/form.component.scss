@@ -5,10 +5,14 @@
     max-width: 1200px;
     justify-self: center;
 }
-form{
+.title-flex{
+    display: flex;
+    align-items: center;
+}
+ion-segment-content{
     background-color: #F8EED2;
     overflow-y: auto;
-    height: 68vh;
+    height: 65vh;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
@@ -41,6 +45,9 @@ ion-segment-button{
 }
 ion-segment-button ion-label{
     color: #FEF5DF;
+}
+.searchbar-input.sc-ion-searchbar-md{
+    --border-radius: 1rem;
 }
 @media (max-width: 440px) {
     .container{

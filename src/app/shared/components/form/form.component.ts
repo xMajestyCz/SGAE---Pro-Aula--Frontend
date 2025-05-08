@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/core/Services/api.service';
 import { ToastService } from '../../services/toast.service';
@@ -14,7 +14,10 @@ import { UserData } from '../../models/user.model';
 export class FormComponent {
   @Input() title: string = '';
   @Input() selectedRole: string = '';
+  previousRole: string = ''; 
   isLoading = false;
+  maxBirthDate: Date;
+  minBirthDate: Date;
   
   datosUsuario: UserData = {
     first_name: '',
@@ -32,8 +35,48 @@ export class FormComponent {
 
   constructor(
     private toastService: ToastService,
-    private apiService: ApiService
-  ) {}
+    private apiService: ApiService,
+  ) {
+    const currentDate = new Date();
+    this.maxBirthDate = new Date(
+      currentDate.getFullYear() - 2,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
+    
+    this.minBirthDate = new Date(
+      currentDate.getFullYear() - 70,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedRole'] && !changes['selectedRole'].firstChange) {
+      const previousRole = changes['selectedRole'].previousValue;
+      const currentRole = changes['selectedRole'].currentValue;
+      
+      if (previousRole !== currentRole) {
+        this.resetFormData();
+      }
+    }
+  }
+
+  resetFormData(): void {
+    this.datosUsuario = {
+      first_name: '',
+      second_name: '',
+      first_lastname: '',
+      second_lastname: '',
+      id_card: '',
+      birthdate: '',
+      place_of_birth: '',
+      address: '',
+      phone: '',
+      email: '',
+      photo: null
+    };
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -41,65 +84,55 @@ export class FormComponent {
       this.datosUsuario.photo = input.files[0];
     }
   }
-
+  
   async save(form: NgForm): Promise<void> {
-    if (form.invalid) {
-      this.toastService.show('Por favor complete todos los campos requeridos', 'danger');
-      return;
-    }
-  
     this.isLoading = true;
-  
+    
     try {
       const endpoint = this.getEndpointByRole();
-      const useFormData = this.selectedRole !== 'secretaria';
-      const data = useFormData ? this.prepareFormData() : this.prepareJsonData();
-  
-      await this.apiService.post(endpoint, data, useFormData).toPromise();
+      const data = this.prepareJsonData();
+
+      const response = await this.apiService.post(endpoint, data, false).toPromise();
       
-      this.toastService.show('Registro exitoso', 'success');
+      this.toastService.show('Estudiante registrado exitosamente', 'success');
       form.resetForm();
-      this.datosUsuario.photo = null;
+      this.resetFormData();
+      
     } catch (error: any) {
-      if (error.message.includes('unique constraint')) {
-        this.handleDuplicateError(error);
-      } else {
-        this.toastService.show(error.message || 'Error al registrar', 'danger');
-      }
+      this.handleApiError(error);
     } finally {
       this.isLoading = false;
     }
   }
-  
-  private handleDuplicateError(error: any): void {
-    let errorMessage = 'Error al registrar';
+
+  private handleApiError(error: any): void {
+    console.error('Error completo:', error);
     
-    if (error.error?.detail?.includes('id_card')) {
-      errorMessage = 'El número de documento ya está registrado';
-    } else if (error.error?.detail?.includes('email')) {
-      errorMessage = 'El correo electrónico ya está registrado';
+    if (error.status === 409) {
+      this.handleDuplicateError(error.serverError || error);
+    } else if (error.message) {
+      console.log('error: '+error.message);
     } else {
-      errorMessage = 'El registro ya existe en el sistema';
+      this.toastService.show('Error desconocido al registrar', 'danger');
+    }
+  }
+
+  private handleDuplicateError(errorData: any): void {
+    let errorMessage = 'Datos duplicados: ';
+    
+    if (Array.isArray(errorData?.non_field_errors)) {
+      errorMessage += errorData.non_field_errors.join(', ');
+    } else if (errorData?.id_card) {
+      errorMessage += `El documento ${errorData.id_card} ya existe`;
+    } else if (errorData?.email) {
+      errorMessage += `El email ${errorData.email} ya existe`;
+    } else if (errorData?.detail) {
+      errorMessage += errorData.detail;
+    } else {
+      errorMessage += 'El documento o email ya están registrados';
     }
     
     this.toastService.show(errorMessage, 'danger');
-  }
-
-  private prepareFormData(): FormData {
-    const formData = new FormData();
-    const jsonData = this.prepareJsonData();
-
-    Object.entries(jsonData).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        if (key === 'photo' && this.datosUsuario.photo instanceof File) {
-          formData.append(key, this.datosUsuario.photo);
-        } else {
-          formData.append(key, String(value));
-        }
-      }
-    });
-
-    return formData;
   }
 
   private prepareJsonData(): Omit<UserData, 'photo'> {
@@ -128,5 +161,23 @@ export class FormComponent {
     };
     
     return roleEndpoints[this.selectedRole] || 'users/';
+  }
+
+  onlyLetters(event: KeyboardEvent) {
+    const pattern = /[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
+  onlyNumbers(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 }

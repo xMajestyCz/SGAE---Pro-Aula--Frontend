@@ -8,15 +8,14 @@ export class ModalService {
 
   constructor(private modalCtrl: ModalController) {}
 
-  async open(component: any, props: any = {}, cssClass: string = '') {
+  async open(component: any, props: any = {}, cssClass: string = ''): Promise<HTMLIonModalElement> {
     const modal = await this.modalCtrl.create({
       component,
       componentProps: props,
       cssClass
     });
     await modal.present();
-    const result = await modal.onDidDismiss();
-    return result;
+    return modal;
   }
 
   async dismiss(data: any = null, role: string = '') {
