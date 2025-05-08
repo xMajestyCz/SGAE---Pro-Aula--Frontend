@@ -2,7 +2,8 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/core/Services/api.service';
 import { ToastService } from '../../services/toast.service';
-import { UserData } from 'src/app/models/user.model';
+import { UserData } from '../../models/user.model';
+
 
 @Component({
   selector: 'app-form',
