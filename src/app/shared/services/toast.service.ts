@@ -18,4 +18,27 @@ export class ToastService {
     });
     await toast.present();
   }
+
+
+  async showToast(message: string, color: 'success' | 'warning' | 'danger' = 'success', duration = 3000) {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration,
+      color,
+      position: 'bottom'
+    });
+    await toast.present();
+  }
+
+  success(message: string) {
+    this.showToast(message, 'success');
+  }
+
+  error(message: string) {
+    this.showToast(message, 'danger');
+  }
+
+  warning(message: string) {
+    this.showToast(message, 'warning');
+  }
 }
