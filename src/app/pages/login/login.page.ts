@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/Services/auth.service';
 import { LoggerService } from 'src/app/core/Services/logger.service';
-import { SpinnerService } from 'src/app/core/Services/spinner.service';
+import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/core/Services/toast.service';
 
 @Component({
