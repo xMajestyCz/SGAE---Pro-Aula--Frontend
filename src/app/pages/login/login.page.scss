@@ -181,31 +181,19 @@ ion-card-content {
 }
 
 
-@media (max-width: 768px) {
-  .card-layout {
-    grid-template-areas:
-      "header"
-      "image"
-      "form";
-    grid-template-columns: 1fr;
-    border-radius: 15px;
-  }
-
-  .card-title {
-    border-radius: 15px 15px 0 0;
-    padding: 20px;
-  }
-
-
-  }
-
-  .form-section {
-    border-radius: 0 0 15px 15px;
-    padding: 20px;
-    max-width: 100%;
-
-    ion-button {
-      width: 100%;
+  @media (max-width: 480px) {
+    ion-content{
+        overflow: hidden;
+    }
+    ion-card {
+      width: 90vw;
+    }
+  
+    ion-input {
+      font-size: 0.95rem;
+    }
+  
+    ion-card-title {
+      font-size: 1.5rem;
     }
   }
-
