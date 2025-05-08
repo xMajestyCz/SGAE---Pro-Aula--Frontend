@@ -196,3 +196,6 @@ ion-modal.custom-modal::part(content) {
 #shadow-root .scroll-y{
 	padding: 0;
 }
+.searchbar-input.sc-ion-searchbar-md{
+    --border-radius: 1rem;
+}

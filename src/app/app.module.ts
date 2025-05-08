@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import { TokenInterceptor } from './core/Services/token.interceptor';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 
 @NgModule({
