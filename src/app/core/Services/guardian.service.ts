@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GuardianService {
-private apiUrl = `${environment.apiUrl}guardian/`;
+private apiUrl = `${environment.apiUrl}guardians/`;
 
   constructor(private http: HttpClient) {}
 
