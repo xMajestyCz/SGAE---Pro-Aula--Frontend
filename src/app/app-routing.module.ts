@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
+import { ChangePasswordComponent } from './shared/components/change-password/change-password.component';
 
 const routes: Routes = [
 
@@ -27,10 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/teacher/teacher.module').then( m => m.TeacherPageModule)
   },
   {
-    path: 'forget-password',
-    loadChildren: () => import('./pages/forget-password/forget-password.module').then( m => m.ForgetPasswordPageModule)
-  },
-  {
     path: 'secretary',
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'secretary' },
@@ -42,6 +39,11 @@ const routes: Routes = [
     data: { role: 'admin' },
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
+  {
+    path: 'change-password',
+    canActivate: [AuthGuard],
+    component:ChangePasswordComponent
+  }
 
 
 ];
