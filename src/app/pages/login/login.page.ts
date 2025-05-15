@@ -5,8 +5,8 @@ import { AuthService } from 'src/app/core/Services/auth.service';
 import { LoggerService } from 'src/app/core/Services/logger.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { jwtDecode } from "jwt-decode";
 import { JWTPayload } from 'src/app/shared/models/jwtpayload';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',

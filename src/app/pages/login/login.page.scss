@@ -1,7 +1,7 @@
 ion-content {
   --background: #B2C8BE;
   padding: 16px;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 .login-box {
@@ -181,9 +181,9 @@ ion-card-content {
 }
 
 
-  @media (max-width: 480px) {
+  @media (max-width: 500px) {
     ion-content{
-        overflow: hidden;
+        overflow: hidden !important;
     }
     ion-card {
       width: 90vw;
