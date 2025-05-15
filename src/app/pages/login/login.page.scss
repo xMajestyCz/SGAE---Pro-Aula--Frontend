@@ -107,6 +107,7 @@ ion-card-content {
     font-size: 1rem;
     padding-right: 30px;
     padding-left: 30px; 
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
       &:hover{
       border: 1px solid #ED9B91;
@@ -146,6 +147,7 @@ ion-card-content {
     color: #555;
     text-decoration: none;
     font-size: 0.9rem;
+     transition: color 0.2s ease;
   }
 
   ion-footer a:hover {

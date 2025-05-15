@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RoleGuard } from './core/guards/role.guard';
 import { ChangePasswordComponent } from './shared/components/change-password/change-password.component';
+import { NoAuthGuard } from './core/guards/noauth.guard';
 
 const routes: Routes = [
 
@@ -13,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
+     canActivate: [NoAuthGuard],
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
@@ -41,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'change-password',
-    canActivate: [AuthGuard],
+    canActivate: [NoAuthGuard],
     component:ChangePasswordComponent
   }
 
