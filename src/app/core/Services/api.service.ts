@@ -75,4 +75,16 @@ export class ApiService {
       serverError: error.error
     }));
   }
+
+  get(endpoint: string): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.get(`${this.apiUrl}${endpoint}`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  public getApiUrl(): string {
+    return this.apiUrl;
+  }
 }

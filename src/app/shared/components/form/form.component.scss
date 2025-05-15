@@ -49,6 +49,62 @@ ion-segment-button ion-label{
 .searchbar-input.sc-ion-searchbar-md{
     --border-radius: 1rem;
 }
+#second ion-grid {
+    padding: 2rem;
+    width: 100%;
+}
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+.table-scroll {
+    min-width: 100%; 
+}
+.header-row, .user-row {
+    display: flex;
+    width: 100%;
+    min-width: 800px; 
+}
+.header-row ion-col, .user-row ion-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #B2C8BE;
+    padding: 12px 8px;
+    flex: 1; 
+    min-width: 0; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.col-name {
+    flex: 2;
+    min-width: 200px;
+    justify-content: flex-start; 
+    padding-left: 16px;
+}
+.col-doc {
+    flex: 1;
+    min-width: 120px;
+}
+.col-phone {
+    flex: 1;
+    min-width: 120px;
+}
+.col-email {
+    flex: 2;
+    min-width: 200px;
+}
+.user-row {
+    transition: all 0.3s ease-out;
+}
+.user-row:hover {
+    background-color: #FC8671;
+    color: white;
+}
+.table-scroll {
+    min-width: 600px; 
+}
 @media (max-width: 440px) {
     .container{
         justify-self: auto;

@@ -4,7 +4,6 @@ import { ApiService } from 'src/app/core/Services/api.service';
 import { ToastService } from '../../services/toast.service';
 import { UserData } from '../../models/user.model';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -18,6 +17,16 @@ export class FormComponent {
   isLoading = false;
   maxBirthDate: Date;
   minBirthDate: Date;
+  searchTerm = ''; 
+  isSearching = false;
+  searchResults: UserData | null = null;
+  usersByRole: UserData[] = [];
+  isLoadingUsers = false;
+  selectedUser: UserData | null = null;
+  isUserModalOpen = false;
+  currentPage = 1;
+  pageSize = 10;
+  hasMoreUsers = true;
   
   datosUsuario: UserData = {
     first_name: '',
@@ -51,16 +60,13 @@ export class FormComponent {
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedRole'] && !changes['selectedRole'].firstChange) {
-      const previousRole = changes['selectedRole'].previousValue;
-      const currentRole = changes['selectedRole'].currentValue;
-      
-      if (previousRole !== currentRole) {
-        this.resetFormData();
-      }
-    }
+  ngOnInit() {
+  if (this.selectedRole) {
+    setTimeout(() => {
+      this.loadUsersByRole();
+    }, 500);
   }
+}
 
   resetFormData(): void {
     this.datosUsuario = {
@@ -131,7 +137,6 @@ export class FormComponent {
     } else {
       errorMessage += 'El documento o email ya están registrados';
     }
-    
     this.toastService.show(errorMessage, 'danger');
   }
 
@@ -178,6 +183,148 @@ export class FormComponent {
     
     if (!pattern.test(inputChar)) {
       event.preventDefault();
+    }
+  }
+  
+  async searchUserByIdCard(): Promise<void> {
+    if (!this.searchTerm.trim()) {
+      this.toastService.show('Ingrese un número de documento', 'warning');
+      this.searchResults = null;
+      return;
+    }
+
+    if (!/^\d{7,10}$/.test(this.searchTerm)) {
+      this.toastService.show('El documento debe tener 10 dígitos numéricos', 'warning');
+      this.searchResults = null;
+      return;
+    }
+
+    this.isSearching = true;
+    this.searchResults = null;
+    
+    try {
+      const endpoint = this.getEndpointByRole();
+      const allUsers = await this.apiService.get(endpoint).toPromise();
+      
+      const usersArray = Array.isArray(allUsers) ? allUsers : 
+                        allUsers.results ? allUsers.results : 
+                        allUsers.data ? allUsers.data : [];
+      
+      const foundUser = usersArray.find((user: any) => user.id_card?.toString() === this.searchTerm.trim());
+      
+      if (foundUser) {
+        this.searchResults = foundUser;
+        this.fillFormWithSearchResults();
+      } else {
+        this.toastService.show('No se encontraron resultados', 'warning');
+      }
+    } catch (error: any) {
+      console.error('Error en la búsqueda:', error);
+      this.searchResults = null;
+      if (error.status === 404) {
+        this.toastService.show('Usuario no encontrado', 'warning');
+      } else {
+        this.toastService.show('Error al buscar usuario', 'danger');
+      }
+    } finally {
+      this.isSearching = false;
+    }
+  }
+
+  private fillFormWithSearchResults(): void {
+    if (!this.searchResults) return;
+
+    this.datosUsuario = {
+      first_name: this.searchResults.first_name || '',
+      second_name: this.searchResults.second_name || '',
+      first_lastname: this.searchResults.first_lastname || '',
+      second_lastname: this.searchResults.second_lastname || '',
+      id_card: this.searchResults.id_card || '',
+      birthdate: this.searchResults.birthdate || '',
+      place_of_birth: this.searchResults.place_of_birth || '',
+      address: this.searchResults.address || '',
+      phone: this.searchResults.phone || '',
+      email: this.searchResults.email || '',
+      photo: null
+    };
+  }
+
+  async loadUsersByRole(): Promise<void> {
+    if (!this.selectedRole) {
+      console.warn('Intento de carga sin rol seleccionado');
+      return;
+    }
+    
+    this.isLoadingUsers = true;
+    this.usersByRole = [];
+    this.currentPage = 1;
+    this.hasMoreUsers = true;
+
+    try {
+      const endpoint = this.getEndpointByRole();
+      
+      const timestamp = new Date().getTime();
+      const url = `${endpoint}?page=${this.currentPage}&page_size=${this.pageSize}&_=${timestamp}`;
+      
+      const response = await this.apiService.get(url).toPromise();
+      
+      let users = [];
+      if (Array.isArray(response)) {
+        users = response;
+      } else if (response?.results) {
+        users = response.results;
+        this.hasMoreUsers = !!response.next;
+      } else if (response?.data) {
+        users = response.data;
+        this.hasMoreUsers = !!response.next_page;
+      } else {
+        users = [];
+        console.warn('Formato de respuesta no reconocido, usando array vacío');
+      }
+
+      this.usersByRole = users;
+
+    } catch (error: any) {
+      console.error('Error al cargar usuarios:', error);
+      this.usersByRole = [];
+      
+      if (error.status != 404) {
+        this.toastService.show('Error al cargar usuarios. Intente nuevamente.', 'danger', 3000);
+      }
+    }
+  }
+
+  async loadMoreUsers(event: any): Promise<void> {
+    if (!this.hasMoreUsers) {
+      event.target.complete();
+      return;
+    }
+
+    this.currentPage++;
+    
+    try {
+      const endpoint = this.getEndpointByRole();
+      const response = await this.apiService.get(`${endpoint}?page=${this.currentPage}&page_size=${this.pageSize}`).toPromise();
+      
+      this.usersByRole = [...this.usersByRole, ...(response.results || response)];
+      this.hasMoreUsers = response.next ? true : false;
+      
+    } catch (error) {
+      this.toastService.show('Error al cargar más usuarios', 'danger');
+    } finally {
+      event.target.complete();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedRole'] && !changes['selectedRole'].firstChange) {
+      const previousRole = changes['selectedRole'].previousValue;
+      const currentRole = changes['selectedRole'].currentValue;
+
+      if (previousRole !== currentRole) {
+        this.resetFormData();
+        this.loadUsersByRole();
+      }
     }
   }
 }

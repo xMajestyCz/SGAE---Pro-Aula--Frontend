@@ -197,13 +197,103 @@
       </form>
     </ion-segment-content>
     <ion-segment-content id="second">
-      <ion-searchbar color="new8" show-clear-button="always" clear-icon="trash-bin" placeholder="Buscar"></ion-searchbar>
+      <ion-searchbar 
+        [(ngModel)]="searchTerm" 
+        color="new8" 
+        show-clear-button="always" 
+        clear-icon="trash-bin" 
+        placeholder="Buscar por documento"
+        (ionChange)="searchUserByIdCard()"
+        (ionClear)="loadUsersByRole()">
+      </ion-searchbar>
+
+      <div *ngIf="isSearching" class="search-loading">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Buscando usuario...</p>
+      </div>
+
+      <div *ngIf="searchResults" class="search-results">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>
+              {{ searchResults.first_name }} {{ searchResults.first_lastname }}
+            </ion-card-title>
+            <ion-card-subtitle>
+              Documento: {{ searchResults.id_card }}
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-label>Nombres:</ion-label>
+                <ion-text>{{ searchResults.first_name }} {{ searchResults.second_name || '' }}</ion-text>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Apellidos:</ion-label>
+                <ion-text>{{ searchResults.first_lastname }} {{ searchResults.second_lastname || '' }}</ion-text>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Fecha Nacimiento:</ion-label>
+                <ion-text>{{ searchResults.birthdate | date:'mediumDate' }}</ion-text>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Teléfono:</ion-label>
+                <ion-text>{{ searchResults.phone }}</ion-text>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Email:</ion-label>
+                <ion-text>{{ searchResults.email }}</ion-text>
+              </ion-item>
+              
+              <ion-item>
+                <ion-label>Dirección:</ion-label>
+                <ion-text>{{ searchResults.address }}</ion-text>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div *ngIf="!searchTerm && !searchResults" class="table-container">
+        <div class="table-scroll">
+          <ion-grid>
+            <ion-row class="header-row">
+              <ion-col class="col-name">Nombre</ion-col>
+              <ion-col class="col-doc">Documento</ion-col>
+              <ion-col class="col-phone">Teléfono</ion-col>
+              <ion-col class="col-email">Email</ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let user of usersByRole" class="user-row">
+              <ion-col class="col-name">{{ user.first_name }} {{ user.first_lastname }}</ion-col>
+              <ion-col class="col-doc">{{ user.id_card }}</ion-col>
+              <ion-col class="col-phone">{{ user.phone }}</ion-col>
+              <ion-col class="col-email">{{ user.email }}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+
+      <div *ngIf="searchTerm && !isSearching && !searchResults" class="no-results">
+        <ion-icon name="search-outline" size="large"></ion-icon>
+        <p>No se encontraron resultados para "{{ searchTerm }}"</p>
+      </div>
+
+      <div *ngIf="usersByRole.length === 0 && !isLoadingUsers && !searchTerm" class="no-users">
+        <ion-icon name="people-outline"></ion-icon>
+        <p>No hay usuarios registrados</p>
+      </div>
     </ion-segment-content>
     <ion-segment-content id="third">
-      <ion-searchbar color="new8" show-clear-button="always" clear-icon="trash-bin" placeholder="Buscar"></ion-searchbar>
+      
     </ion-segment-content>
     <ion-segment-content id="fourth">
-      <ion-searchbar color="new8" show-clear-button="always" clear-icon="trash-bin" placeholder="Buscar"></ion-searchbar>
+
     </ion-segment-content>
   </ion-segment-view>
 </div>
