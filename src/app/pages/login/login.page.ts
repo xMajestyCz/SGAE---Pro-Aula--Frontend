@@ -79,6 +79,8 @@ export class LoginPage implements OnInit {
         } else {
           this.toastService.error('Error de conexión con el servidor.');
         }
+        this.isLoading = false;
+        this.spinnerService.hide();
       },
       complete: () => {
         this.isLoading = false;
