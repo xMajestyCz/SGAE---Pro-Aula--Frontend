@@ -5,7 +5,8 @@ import { AuthService } from 'src/app/core/Services/auth.service';
 import { LoggerService } from 'src/app/core/Services/logger.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-
+import { jwtDecode } from "jwt-decode";
+import { JWTPayload } from 'src/app/shared/models/jwtpayload';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,9 @@ export class LoginPage implements OnInit {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: response => {
-        const role=response.user_type;
+        const token = response.access;
+        const jwtpaylod = jwtDecode<JWTPayload>(token);
+        const role=jwtpaylod.user_type;
         localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.'); 
