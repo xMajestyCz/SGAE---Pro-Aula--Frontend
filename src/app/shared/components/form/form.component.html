@@ -53,25 +53,59 @@
                 </ion-input>
               </ion-col>
                 <ion-col size="6">
-                  <ion-input [(ngModel)]="datosUsuario.birthdate" #birthdate="ngModel" name="birthdate" type="date" label="Fecha de nacimiento" label-placement="stacked" fill="outline" required [max]="maxBirthDate | date:'yyyy-MM-dd'"
-                  [min]="minBirthDate | date:'yyyy-MM-dd'">
-                </ion-input>
+                  <ion-input *ngIf="selectedRole === 'estudiante'" 
+                    [(ngModel)]="datosUsuario.birthdate" 
+                    name="birthdate" 
+                    type="date" 
+                    label="Fecha de nacimiento" 
+                    label-placement="stacked" 
+                    fill="outline" 
+                    required
+                    [max]="maxBirthDateStudent | date:'yyyy-MM-dd'"
+                    [min]="minBirthDateStudent | date:'yyyy-MM-dd'">
+                  </ion-input>
+
+                  <ion-input *ngIf="selectedRole !== 'estudiante'" 
+                    [(ngModel)]="datosUsuario.birthdate" 
+                    name="birthdate" 
+                    type="date" 
+                    label="Fecha de nacimiento" 
+                    label-placement="stacked" 
+                    fill="outline" 
+                    required
+                    [max]="maxBirthDateOtherRoles | date:'yyyy-MM-dd'"
+                    [min]="minBirthDateOtherRoles | date:'yyyy-MM-dd'">
+                  </ion-input>
               </ion-col>
               <ion-col size="12">
                 <ion-input [(ngModel)]="datosUsuario.place_of_birth" name="place_of_birth" label="Lugar de nacimiento" label-placement="floating" placeholder="Lugar de nacimiento" fill="outline" required></ion-input>
               </ion-col>
-              <!-- <ion-col size="12" *ngIf="selectedRole === 'estudiante'">
-                <ion-input [(ngModel)]="datosUsuario.disability" name="disability" label="Discapacidad o condición médica especial" label-placement="floating" placeholder="Discapacidad o condición médica especial (si aplica)" fill="outline"></ion-input>
-              </ion-col> -->
-              <ion-col size="12">
-                <ion-input 
-                  type="file" 
-                  (change)="onFileSelected($event)" 
-                  accept="image/*" 
-                  label="Foto de perfil" 
-                  label-placement="floating" 
-                  fill="outline">
-                </ion-input>
+              <ion-col class="image-container">
+                <div class="upload-area" (click)="fileInput.click()">
+                  <input 
+                    #fileInput
+                    type="file" 
+                    (change)="handleFileInput($event)"
+                    accept="image/*"
+                    style="display: none"
+                  >
+                  
+                  <div *ngIf="!selectedImage" class="upload-prompt">
+                    <ion-icon name="camera-outline" size="large"></ion-icon>
+                    <ion-label>Foto de perfil (Opcional)</ion-label>
+                  </div>
+                  
+                  <div *ngIf="selectedImage" class="image-preview">
+                    <img [src]="selectedImage" alt="Preview">
+                    <ion-button 
+                      fill="clear" 
+                      color="light"
+                      (click)="removeImage($event)"
+                      class="remove-button">
+                      <ion-icon name="close-circle" color="danger"></ion-icon>
+                    </ion-button>
+                  </div>
+                </div>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -102,6 +136,40 @@
                   fill="outline" placeholder="rodrigo.morales@gmail.com" required
                   pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
                 </ion-input>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <ion-item color="new7" *ngIf="selectedRole === 'estudiante'">
+          <ion-grid fixed>
+            <div class="important" *ngIf="selectedRole === 'estudiante'">
+              <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+              <ion-label>Antes de registrar un estudiante, verifique que el acudiente esté registrado</ion-label>
+            </div>
+            <div class="title-flex">
+              <ion-icon name="people-circle-sharp" size="large"></ion-icon>
+              <h4>Acudiente</h4>
+            </div>
+            <ion-row>
+              <ion-col size="12">
+                <ion-select 
+                  label="Selecciona el acudiente" 
+                  label-placement="floating" 
+                  interface="modal" 
+                  justify="space-between"
+                  [(ngModel)]="selectedGuardianId"
+                  name="guardian"
+                  required>
+                  
+                  <ion-select-option 
+                    *ngFor="let guardian of guardians" 
+                    [value]="guardian.id">
+                    {{ guardian.first_name }} {{ guardian.second_name || '' }} 
+                    {{ guardian.first_lastname }} {{ guardian.second_lastname || '' }}
+                    ({{ guardian.id_card }})
+                  </ion-select-option>
+                </ion-select>
               </ion-col>
             </ion-row>
           </ion-grid>

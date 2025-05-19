@@ -9,5 +9,5 @@ export interface UserData {
     address: string;
     phone: string;
     email: string;
-    photo: File | null;
+    image: string | null;
 }
