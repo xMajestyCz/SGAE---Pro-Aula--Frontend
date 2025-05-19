@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://jesus-castro10-sgae-pro-aula-backend.onrender.com/api/'
+  apiUrl: 'http://localhost:8000/api/',
+  apiAddress: 'https://countriesnow.space/api/v0.1/countries',
 };
 
 /*

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ApiService } from 'src/app/core/Services/api.service';
 import { ToastService } from '../../services/toast.service';
 import { UserData } from '../../models/user.model';
+import { AddressService } from '../../services/address.service';
 
 @Component({
   selector: 'app-form',
@@ -27,6 +28,13 @@ export class FormComponent {
   currentPage = 1;
   pageSize = 10;
   hasMoreUsers = true;
+
+  //Adress
+  countries: { id: string; name: string }[] = [];
+  states: any[] = [];
+  cities: string[] = [];
+  selectedCountry: string = '';
+  //Adress
   
   datosUsuario: UserData = {
     first_name: '',
@@ -45,6 +53,7 @@ export class FormComponent {
   constructor(
     private toastService: ToastService,
     private apiService: ApiService,
+    private addressSrv: AddressService
   ) {
     const currentDate = new Date();
     this.maxBirthDate = new Date(
@@ -61,12 +70,16 @@ export class FormComponent {
   }
 
   ngOnInit() {
-  if (this.selectedRole) {
-    setTimeout(() => {
-      this.loadUsersByRole();
-    }, 500);
+    if (this.selectedRole) {
+      setTimeout(() => {
+        this.loadUsersByRole();
+      }, 500);
+    }
+
+    this.addressSrv.getCountries().subscribe(data => {
+        this.countries = data;
+      });
   }
-}
 
   resetFormData(): void {
     this.datosUsuario = {
@@ -327,4 +340,22 @@ export class FormComponent {
       }
     }
   }
+
+  //Address
+  onCountryChange(country: string) {
+    this.selectedCountry = country;
+    this.states = [];
+    this.cities = [];
+    this.addressSrv.getStatesByCountry(country).subscribe(data => {
+      this.states = data;
+    });
+  }
+
+  onStateChange(state: string) {
+    this.cities = [];
+    this.addressSrv.getCitiesByState(this.selectedCountry, state).subscribe(data => {
+      this.cities = data;
+    });
+  }
+  //Address
 }

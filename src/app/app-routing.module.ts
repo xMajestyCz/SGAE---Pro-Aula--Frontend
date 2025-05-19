@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'change-password',
     canActivate: [NoAuthGuard],
     component:ChangePasswordComponent
+  },
+  {
+    path: 'test',
+    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
   }
 
 

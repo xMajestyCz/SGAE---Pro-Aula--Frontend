@@ -57,8 +57,39 @@
                   [min]="minBirthDate | date:'yyyy-MM-dd'">
                 </ion-input>
               </ion-col>
-              <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.place_of_birth" name="place_of_birth" label="Lugar de nacimiento" label-placement="floating" placeholder="Lugar de nacimiento" fill="outline" required></ion-input>
+              <ion-col size="4">
+                <ion-select
+                            name="place_of_birth" 
+                            label="Pais de nacimiento" 
+                            label-placement="floating" 
+                            fill="outline" required
+                            (ionChange)="onCountryChange($any($event.target).value)"
+                            >
+                  <ion-select-option value="" disabled selected>-- País --</ion-select-option>
+                  <ion-select-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="4">
+                <ion-select 
+                  name="place_of_birth" 
+                  label="Departamento de nacimiento" 
+                  label-placement="floating" 
+                  fill="outline" required
+                  (ionChange)="onStateChange($any($event.target).value)">
+                  <ion-select-option value="" disabled selected>-- Departamento --</ion-select-option>
+                  <ion-select-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="4">
+                <ion-select 
+                  name="place_of_birth" 
+                  label="Ciudad de nacimiento" 
+                  label-placement="floating" 
+                  placeholder="Lugar de nacimiento" 
+                  fill="outline" required>
+                  <ion-select-option value="" disabled selected>-- Ciudad --</ion-select-option>
+                  <ion-select-option *ngFor="let city of cities" [value]="city">{{ city }}</ion-select-option>
+                </ion-select>
               </ion-col>
               <!-- <ion-col size="12" *ngIf="selectedRole === 'estudiante'">
                 <ion-input [(ngModel)]="datosUsuario.disability" name="disability" label="Discapacidad o condición médica especial" label-placement="floating" placeholder="Discapacidad o condición médica especial (si aplica)" fill="outline"></ion-input>
