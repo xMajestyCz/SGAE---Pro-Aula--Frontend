@@ -6,29 +6,38 @@ import { MainComponent } from './components/main/main.component';
 import { FormComponent } from './components/form/form.component';
 import { ReportComponent } from './components/report/report.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
-import { AddressService } from './services/address.service';
-import { c } from '@angular/core/navigation_types.d-u4EOrrdZ';
+import { LettersOnlyDirective } from './directives/input-restriction.directive';
+import { NumbersOnlyDirective } from './directives/input-restriction.directive';
 
 const MODULES = [
   CommonModule,
-  IonicModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  IonicModule
 ];
-
 const COMPONENTS = [
-  MainComponent,
-  FormComponent,
+  MainComponent, 
+  FormComponent, 
   ReportComponent,
-  ChangePasswordComponent
+  ChangePasswordComponent,
+];
+const DIRECTIVES = [
+  LettersOnlyDirective,
+  NumbersOnlyDirective,
 ];
 @NgModule({
-  declarations: [...COMPONENTS],
+  declarations: [
+    ...COMPONENTS,
+    ...DIRECTIVES,
+  ],
   imports: [
     ...MODULES
   ],
-  exports: [...MODULES, ...COMPONENTS],
-  providers: [AddressService],
+  exports: [
+    ...MODULES,
+    ...COMPONENTS,
+    ...DIRECTIVES,
+  ]
 })
 
 export class SharedModule { }

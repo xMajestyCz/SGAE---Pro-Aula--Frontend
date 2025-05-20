@@ -12,7 +12,6 @@ export class AddressService {
 
   constructor(private http: HttpClient) {}
 
-  // 1. Obtener países con nombre y un "id" (aquí usaremos el nombre como identificador)
   getCountries(): Observable<{ id: string; name: string }[]> {
     return this.http.get<any>(this.BASE_URL).pipe(
       map(res =>
@@ -24,7 +23,6 @@ export class AddressService {
     );
   }
 
-  // 2. Obtener estados/departamentos por nombre de país
   getStatesByCountry(countryName: string): Observable<{ code: string, name: string }[]> {
     return this.http.post<any>(
       `${this.BASE_URL}/states`,
@@ -39,7 +37,6 @@ export class AddressService {
     );
   }
 
-  // 3. Obtener ciudades por estado (departamento) y país
   getCitiesByState(countryName: string, stateName: string): Observable<string[]> {
     return this.http.post<any>(
       `${this.BASE_URL}/state/cities`,

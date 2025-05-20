@@ -199,3 +199,11 @@ ion-modal.custom-modal::part(content) {
 .searchbar-input.sc-ion-searchbar-md{
     --border-radius: 1rem;
 }
+ion-item.sc-ion-select-modal-md{
+    border-bottom: 1px solid;
+	background-color: #B2C8BE;;
+}
+ion-modal ion-toolbar {
+	--background: #FC8671;
+	--color: white;
+}

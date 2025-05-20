@@ -1,5 +1,5 @@
 <div class="container">
-  <ion-segment color="new7" [scrollable]="true">
+  <ion-segment color="new7" [scrollable]="true" [(ngModel)]="selectedTab">
     <ion-segment-button value="first" content-id="first">
       <ion-icon name="receipt-sharp"></ion-icon>
       <ion-label>Registrar</ion-label>
@@ -12,13 +12,10 @@
       <ion-icon name="swap-horizontal-sharp"></ion-icon>
       <ion-label>Modificar</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="fourth" content-id="fourth">
-      <ion-icon name="close-circle-sharp"></ion-icon>
-      <ion-label>Eliminar</ion-label>
-    </ion-segment-button>
   </ion-segment>
+  
   <ion-segment-view>
-    <ion-segment-content id="first">
+    <ion-segment-content [hidden]="selectedTab !== 'first'" id="first">
       <form method="post" #form="ngForm" (ngSubmit)="save(form)">
         <ion-item color="new7">
           <ion-grid fixed>
@@ -28,81 +25,140 @@
             </div>
             <ion-row>
               <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.first_name" name="first_name" label="1° nombre" label-placement="floating" fill="outline" placeholder="Rodrigo" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-                (keypress)="onlyLetters($event)" required></ion-input>
+                <ion-input 
+                  [(ngModel)]="datosUsuario.first_name" 
+                  name="first_name" 
+                  label="1° nombre" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="Rodrigo"
+                  pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+                  appLettersOnly
+                  required>
+                </ion-input>
               </ion-col>
+              
               <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.second_name" name="second_name" label="2° nombre" label-placement="floating" fill="outline" placeholder="José" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-                (keypress)="onlyLetters($event)"></ion-input>
+                <ion-input 
+                  [(ngModel)]="datosUsuario.second_name" 
+                  name="second_name" 
+                  label="2° nombre" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="José"
+                  pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+                  appLettersOnly>
+                </ion-input>
               </ion-col>
+              
               <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.first_lastname" name="first_lastname" label="1° apellido" label-placement="floating" fill="outline" placeholder="Morales" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-                (keypress)="onlyLetters($event)" required></ion-input>
+                <ion-input 
+                  [(ngModel)]="datosUsuario.first_lastname" 
+                  name="first_lastname" 
+                  label="1° apellido" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="Morales"
+                  pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+                  appLettersOnly
+                  required>
+                </ion-input>
               </ion-col>
+              
               <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.second_lastname" name="second_lastname" label="2° apellido" label-placement="floating" fill="outline" placeholder="del Campo" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
-                (keypress)="onlyLetters($event)" required></ion-input>
+                <ion-input 
+                  [(ngModel)]="datosUsuario.second_lastname" 
+                  name="second_lastname" 
+                  label="2° apellido" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="del Campo"
+                  pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+                  appLettersOnly
+                  required>
+                </ion-input>
               </ion-col>
+              
               <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.id_card" name="id_card" 
-                  label="Número de documento" label-placement="floating" 
-                  fill="outline" placeholder="1234567890" required 
-                  maxlength="10" minlength="10"
+                <ion-input 
+                  [(ngModel)]="datosUsuario.id_card" 
+                  name="id_card" 
+                  label="Número de documento" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="1234567890" 
+                  required 
+                  maxlength="10" 
+                  minlength="10"
                   pattern="[0-9]+"
-                  (keypress)="onlyNumbers($event)">
+                  appNumbersOnly>
                 </ion-input>
               </ion-col>
-                <ion-col size="6">
-                  <ion-input [(ngModel)]="datosUsuario.birthdate" #birthdate="ngModel" name="birthdate" type="date" label="Fecha de nacimiento" label-placement="stacked" fill="outline" required [max]="maxBirthDate | date:'yyyy-MM-dd'"
-                  [min]="minBirthDate | date:'yyyy-MM-dd'">
+              
+              <ion-col size="6">
+                <ion-input *ngIf="selectedRole === 'estudiante'" 
+                  [(ngModel)]="datosUsuario.birthdate" 
+                  name="birthdate" 
+                  type="date" 
+                  label="Fecha de nacimiento" 
+                  label-placement="stacked" 
+                  fill="outline" 
+                  required
+                  [max]="maxBirthDateStudent | date:'yyyy-MM-dd'"
+                  [min]="minBirthDateStudent | date:'yyyy-MM-dd'">
+                </ion-input>
+
+                <ion-input *ngIf="selectedRole !== 'estudiante'" 
+                  [(ngModel)]="datosUsuario.birthdate" 
+                  name="birthdate" 
+                  type="date" 
+                  label="Fecha de nacimiento" 
+                  label-placement="stacked" 
+                  fill="outline" 
+                  required
+                  [max]="maxBirthDateOtherRoles | date:'yyyy-MM-dd'"
+                  [min]="minBirthDateOtherRoles | date:'yyyy-MM-dd'">
                 </ion-input>
               </ion-col>
-              <ion-col size="4">
-                <ion-select
-                            name="place_of_birth" 
-                            label="Pais de nacimiento" 
-                            label-placement="floating" 
-                            fill="outline" required
-                            (ionChange)="onCountryChange($any($event.target).value)"
-                            >
-                  <ion-select-option value="" disabled selected>-- País --</ion-select-option>
-                  <ion-select-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <ion-col size="4">
-                <ion-select 
-                  name="place_of_birth" 
-                  label="Departamento de nacimiento" 
-                  label-placement="floating" 
-                  fill="outline" required
-                  (ionChange)="onStateChange($any($event.target).value)">
-                  <ion-select-option value="" disabled selected>-- Departamento --</ion-select-option>
-                  <ion-select-option *ngFor="let state of states" [value]="state.code">{{ state.name }}</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <ion-col size="4">
-                <ion-select 
-                  name="place_of_birth" 
-                  label="Ciudad de nacimiento" 
-                  label-placement="floating" 
-                  placeholder="Lugar de nacimiento" 
-                  fill="outline" required>
-                  <ion-select-option value="" disabled selected>-- Ciudad --</ion-select-option>
-                  <ion-select-option *ngFor="let city of cities" [value]="city">{{ city }}</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <!-- <ion-col size="12" *ngIf="selectedRole === 'estudiante'">
-                <ion-input [(ngModel)]="datosUsuario.disability" name="disability" label="Discapacidad o condición médica especial" label-placement="floating" placeholder="Discapacidad o condición médica especial (si aplica)" fill="outline"></ion-input>
-              </ion-col> -->
+              
               <ion-col size="12">
                 <ion-input 
-                  type="file" 
-                  (change)="onFileSelected($event)" 
-                  accept="image/*" 
-                  label="Foto de perfil" 
+                  [(ngModel)]="datosUsuario.place_of_birth" 
+                  name="place_of_birth" 
+                  label="Lugar de nacimiento" 
                   label-placement="floating" 
-                  fill="outline">
+                  placeholder="Lugar de nacimiento" 
+                  fill="outline" 
+                  required>
                 </ion-input>
+              </ion-col>
+              
+              <ion-col class="image-container">
+                <div class="upload-area" (click)="fileInput.click()">
+                  <input 
+                    #fileInput
+                    type="file" 
+                    (change)="handleFileInput($event)"
+                    accept="image/*"
+                    style="display: none"
+                  >
+                  
+                  <div *ngIf="!selectedImage" class="upload-prompt">
+                    <ion-icon name="camera-outline" size="large"></ion-icon>
+                    <ion-label>Foto de perfil (Opcional)</ion-label>
+                  </div>
+                  
+                  <div *ngIf="selectedImage" class="image-preview">
+                    <img [src]="selectedImage" alt="Preview">
+                    <ion-button 
+                      fill="clear" 
+                      color="light"
+                      (click)="removeImage($event)"
+                      class="remove-button">
+                      <ion-icon name="close-circle" color="danger"></ion-icon>
+                    </ion-button>
+                  </div>
+                </div>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -116,105 +172,85 @@
             </div>
             <ion-row>
               <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.address" name="address" label="Dirección de residencia" label-placement="floating" fill="outline" placeholder="Dirección completa" required></ion-input>
-              </ion-col>
-              <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.phone" name="phone" 
-                  type="tel" label="Teléfono" label-placement="floating" 
-                  fill="outline" placeholder="3001234567" required 
-                  maxlength="10" minlength="10"
-                  pattern="[0-9]+"
-                  (keypress)="onlyNumbers($event)">
+                <ion-input 
+                  [(ngModel)]="datosUsuario.address" 
+                  name="address" 
+                  label="Dirección de residencia" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="Dirección completa" 
+                  required>
                 </ion-input>
               </ion-col>
+              
               <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.email" name="email" 
-                  type="email" label="Correo electrónico" label-placement="floating" 
-                  fill="outline" placeholder="rodrigo.morales@gmail.com" required
+                <ion-input 
+                  [(ngModel)]="datosUsuario.phone" 
+                  name="phone" 
+                  type="tel" 
+                  label="Teléfono" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="3001234567" 
+                  required 
+                  maxlength="10" 
+                  minlength="10"
+                  pattern="[0-9]+"
+                  appNumbersOnly>
+                </ion-input>
+              </ion-col>
+              
+              <ion-col size="12">
+                <ion-input 
+                  [(ngModel)]="datosUsuario.email" 
+                  name="email" 
+                  type="email" 
+                  label="Correo electrónico" 
+                  label-placement="floating" 
+                  fill="outline" 
+                  placeholder="rodrigo.morales@gmail.com" 
+                  required
                   pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
                 </ion-input>
               </ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
-    
-        <!-- <ion-item color="new7" *ngIf="selectedRole === 'estudiante'">
+
+        <ion-item color="new7" *ngIf="selectedRole === 'estudiante'">
           <ion-grid fixed>
-            <h4>Información del acudiente</h4>
-            <ion-row>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.guardian_name" name="guardian_name" label="Nombre del acudiente" label-placement="floating" fill="outline" placeholder="Nombre completo" required></ion-input>
-              </ion-col>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.guardian_lastname" name="guardian_lastname" label="Apellido del acudiente" label-placement="floating" fill="outline" placeholder="Apellidos" required></ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.guardian_phone" name="guardian_phone" label="Teléfono del acudiente" label-placement="floating" fill="outline" type="tel" placeholder="Número telefónico" required></ion-input>
-              </ion-col>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.guardian_id_card" name="guardian_id_card" label="Número de documento" label-placement="floating" fill="outline" placeholder="Documento de identidad" required></ion-input>
-              </ion-col>
-            </ion-row>
+            <div class="important" *ngIf="selectedRole === 'estudiante'">
+              <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+              <ion-label>Antes de registrar un estudiante, verifique que el acudiente esté registrado</ion-label>
+            </div>
+            <div class="title-flex">
+              <ion-icon name="people-circle-sharp" size="large"></ion-icon>
+              <h4>Acudiente</h4>
+            </div>
             <ion-row>
               <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.guardian_occupation" name="guardian_occupation" label="Ocupación y lugar de trabajo" label-placement="floating" fill="outline" placeholder="Ocupación y lugar de trabajo" required></ion-input>
-              </ion-col>
-              <ion-col size="12">
-                <ion-select [(ngModel)]="datosUsuario.guardian_marital_status" name="guardian_marital_status" label="Estado civil" label-placement="floating" fill="outline">
-                  <ion-select-option value="Casado">Casado/a</ion-select-option>
-                  <ion-select-option value="Soltero">Soltero/a</ion-select-option>
-                  <ion-select-option value="Comprometido">Comprometido/a</ion-select-option>
-                  <ion-select-option value="Viudo">Viudo/a</ion-select-option>
-                  <ion-select-option value="Separado">Separado/a</ion-select-option>
-                  <ion-select-option value="Divorciado">Divorciado/a</ion-select-option>
+                <ion-select 
+                  label="Selecciona el acudiente" 
+                  label-placement="floating" 
+                  interface="modal" 
+                  justify="space-between"
+                  [(ngModel)]="selectedGuardianId"
+                  name="guardian"
+                  required>
+                  
+                  <ion-select-option 
+                    *ngFor="let guardian of guardians" 
+                    [value]="guardian.id">
+                    {{ guardian.first_name }} {{ guardian.second_name || '' }} 
+                    {{ guardian.first_lastname }} {{ guardian.second_lastname || '' }}
+                    ({{ guardian.id_card }})
+                  </ion-select-option>
                 </ion-select>
               </ion-col>
             </ion-row>
           </ion-grid>
-        </ion-item> -->
-    
-        <!-- <ion-item color="new7" *ngIf="selectedRole === 'estudiante'">
-          <ion-grid fixed>
-            <h4>Información académica</h4>
-            <ion-row>
-              <ion-col size="12">
-                <ion-input [(ngModel)]="datosUsuario.previous_school" name="previous_school" label="Escuela anterior" label-placement="floating" fill="outline" placeholder="Nombre de la institución"></ion-input>
-              </ion-col>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.previous_grade" name="previous_grade" label="Grado académico anterior" label-placement="floating" fill="outline" placeholder="Grado que cursaba"></ion-input>
-              </ion-col>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.previous_average" name="previous_average" label="Promedio general" label-placement="floating" fill="outline" placeholder="Promedio del último año"></ion-input>
-              </ion-col>
-              <ion-col size="12">
-                <ion-select [(ngModel)]="datosUsuario.current_grade" name="current_grade" label="Grado a cursar" label-placement="floating" fill="outline" required>
-                  <ion-select-option *ngFor="let course of courses" [value]="course">{{ course }}°</ion-select-option>
-                </ion-select>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item> -->
-    
-        <!-- <ion-item color="new7" *ngIf="selectedRole === 'profesor'">
-          <ion-grid fixed>
-            <h4>Información profesional</h4>
-            <ion-row>
-              <ion-col size="12">
-                <ion-select [(ngModel)]="datosUsuario.specialization" name="specialization" label="Especialización" multiple="true" fill="outline">
-                  <ion-select-option value="matematicas">Matemáticas</ion-select-option>
-                  <ion-select-option value="ciencias">Ciencias</ion-select-option>
-                  <ion-select-option value="lenguaje">Lenguaje</ion-select-option>
-                </ion-select>
-              </ion-col>
-              <ion-col size="6">
-                <ion-input [(ngModel)]="datosUsuario.years_experience" name="years_experience" type="number" label="Años de experiencia" fill="outline" required></ion-input>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item> -->
-    
+        </ion-item>
+
         <ion-button 
           expand="block" 
           shape="round" 
@@ -227,104 +263,198 @@
         </ion-button>
       </form>
     </ion-segment-content>
-    <ion-segment-content id="second">
-      <ion-searchbar 
-        [(ngModel)]="searchTerm" 
+
+  <ion-segment-content [hidden]="selectedTab !== 'second'" id="second">
+    <ion-searchbar 
+      [ngModel]="searchTerm" 
+      (ngModelChange)="handleSearchInput($event)"
+      color="new8" 
+      show-clear-button="always" 
+      clear-icon="trash-bin" 
+      placeholder="Buscar por documento"
+      maxlength="10" 
+      pattern="[0-9]+"
+      appNumbersOnly
+      debounce="500">
+    </ion-searchbar>
+
+    <div *ngIf="isSearching || isLoadingUsers" class="loading-spinner">
+      <ion-spinner name="crescent"></ion-spinner>
+      <ion-label>{{ isSearching ? 'Buscando...' : 'Cargando lista...' }}</ion-label>
+    </div>
+
+    <div *ngIf="searchResults && !isSearching" class="table-container">
+      <ion-grid>
+        <ion-row class="header-row">
+          <ion-col *ngFor="let header of headers">{{header}}</ion-col>
+        </ion-row>
+        <ion-row class="user-row" (click)="showUserReadyToast(searchResults)">
+          <ion-col>{{ searchResults.first_name }} {{ searchResults.first_lastname }}</ion-col>
+          <ion-col>{{ searchResults.id_card }}</ion-col>
+          <ion-col>{{ searchResults.phone }}</ion-col>
+          <ion-col>{{ searchResults.email }}</ion-col>
+          <ion-col>
+            <ion-button color="new8" (click)="deleteUser(searchResults)" [disabled]="isLoading">
+              <ion-icon name="close-circle-sharp"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngIf="!searchTerm && !searchResults && !isLoadingUsers" class="table-container">
+      <ion-grid>
+        <ion-row class="header-row">
+          <ion-col *ngFor="let header of headers">{{header}}</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let user of usersByRole; trackBy: trackByUserId" class="user-row" (click)="showUserReadyToast(user)">
+          <ion-col>{{ user.first_name }} {{ user.first_lastname }}</ion-col>
+          <ion-col>{{ user.id_card }}</ion-col>
+          <ion-col>{{ user.phone }}</ion-col>
+          <ion-col>{{ user.email }}</ion-col>
+          <ion-col>
+            <ion-button color="new8" (click)="deleteUser(user)" [disabled]="isLoading">
+              <ion-icon name="close-circle-sharp"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div *ngIf="searchTerm && !searchResults && !isSearching" class="no-results">
+      <ion-icon name="search-outline" size="large"></ion-icon>
+      <p>No se encontraron resultados para "{{ searchTerm }}"</p>
+    </div>
+
+    <div *ngIf="usersByRole.length === 0 && !isLoadingUsers && !searchTerm" class="no-users">
+      <ion-icon name="people-outline"></ion-icon>
+      <p>No hay usuarios registrados</p>
+    </div>
+  </ion-segment-content>
+
+  <ion-segment-content [hidden]="selectedTab !== 'third'" id="third">
+    <form method="post" #editForm="ngForm" (ngSubmit)="updateUser(editForm)">
+      <ion-item color="new7">
+        <ion-grid fixed>
+          <div class="title-flex">
+            <ion-icon name="information-circle-outline" size="large"></ion-icon>
+            <h4>Información básica</h4>
+          </div>
+          <ion-row>
+            <ion-col size="6">
+              <ion-input 
+                [(ngModel)]="editUser.first_name" 
+                name="first_name" 
+                label="1° nombre" 
+                label-placement="floating" 
+                fill="outline" 
+                disabled>
+              </ion-input>
+            </ion-col>
+            
+            <ion-col size="6">
+              <ion-input 
+                [(ngModel)]="editUser.second_name" 
+                name="second_name" 
+                label="2° nombre" 
+                label-placement="floating" 
+                fill="outline" 
+                disabled>
+              </ion-input>
+            </ion-col>
+            
+            <ion-col class="image-container">
+              <div class="upload-area" (click)="editFileInput.click()">
+                <input 
+                  #editFileInput
+                  type="file" 
+                  (change)="handleEditFileInput($event)"
+                  accept="image/*"
+                  style="display: none"
+                >
+                
+                <div *ngIf="!editSelectedImage && !editUser.image" class="upload-prompt">
+                  <ion-icon name="camera-outline" size="large"></ion-icon>
+                  <ion-label>Foto de perfil (Opcional)</ion-label>
+                </div>
+                
+                <div *ngIf="editSelectedImage || editUser.image" class="image-preview">
+                  <img [src]="editSelectedImage || editUser.image" alt="Preview">
+                  <ion-button 
+                    fill="clear" 
+                    color="light"
+                    (click)="removeEditImage($event)"
+                    class="remove-button">
+                    <ion-icon name="close-circle" color="danger"></ion-icon>
+                  </ion-button>
+                </div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-item color="new7">
+        <ion-grid fixed>
+          <div class="title-flex">
+            <ion-icon name="call-outline" size="large"></ion-icon>
+            <h4>Información de contacto</h4>
+          </div>
+          <ion-row>
+            <ion-col size="12">
+              <ion-input 
+                [(ngModel)]="editUser.address" 
+                name="address" 
+                label="Dirección de residencia" 
+                label-placement="floating" 
+                fill="outline" 
+                required>
+              </ion-input>
+            </ion-col>
+            
+            <ion-col size="12">
+              <ion-input 
+                [(ngModel)]="editUser.phone" 
+                name="phone" 
+                type="tel" 
+                label="Teléfono" 
+                label-placement="floating" 
+                fill="outline" 
+                required 
+                maxlength="10" 
+                minlength="10"
+                pattern="[0-9]+"
+                appNumbersOnly>
+              </ion-input>
+            </ion-col>
+            
+            <ion-col size="12">
+              <ion-input 
+                [(ngModel)]="editUser.email" 
+                name="email" 
+                type="email" 
+                label="Correo electrónico" 
+                label-placement="floating" 
+                fill="outline" 
+                required
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+              </ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-button 
+        expand="block" 
+        shape="round" 
         color="new8" 
-        show-clear-button="always" 
-        clear-icon="trash-bin" 
-        placeholder="Buscar por documento"
-        (ionChange)="searchUserByIdCard()"
-        (ionClear)="loadUsersByRole()">
-      </ion-searchbar>
-
-      <div *ngIf="isSearching" class="search-loading">
-        <ion-spinner name="crescent"></ion-spinner>
-        <p>Buscando usuario...</p>
-      </div>
-
-      <div *ngIf="searchResults" class="search-results">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>
-              {{ searchResults.first_name }} {{ searchResults.first_lastname }}
-            </ion-card-title>
-            <ion-card-subtitle>
-              Documento: {{ searchResults.id_card }}
-            </ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content>
-            <ion-list>
-              <ion-item>
-                <ion-label>Nombres:</ion-label>
-                <ion-text>{{ searchResults.first_name }} {{ searchResults.second_name || '' }}</ion-text>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Apellidos:</ion-label>
-                <ion-text>{{ searchResults.first_lastname }} {{ searchResults.second_lastname || '' }}</ion-text>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Fecha Nacimiento:</ion-label>
-                <ion-text>{{ searchResults.birthdate | date:'mediumDate' }}</ion-text>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Teléfono:</ion-label>
-                <ion-text>{{ searchResults.phone }}</ion-text>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Email:</ion-label>
-                <ion-text>{{ searchResults.email }}</ion-text>
-              </ion-item>
-              
-              <ion-item>
-                <ion-label>Dirección:</ion-label>
-                <ion-text>{{ searchResults.address }}</ion-text>
-              </ion-item>
-            </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </div>
-
-      <div *ngIf="!searchTerm && !searchResults" class="table-container">
-        <div class="table-scroll">
-          <ion-grid>
-            <ion-row class="header-row">
-              <ion-col class="col-name">Nombre</ion-col>
-              <ion-col class="col-doc">Documento</ion-col>
-              <ion-col class="col-phone">Teléfono</ion-col>
-              <ion-col class="col-email">Email</ion-col>
-            </ion-row>
-
-            <ion-row *ngFor="let user of usersByRole" class="user-row">
-              <ion-col class="col-name">{{ user.first_name }} {{ user.first_lastname }}</ion-col>
-              <ion-col class="col-doc">{{ user.id_card }}</ion-col>
-              <ion-col class="col-phone">{{ user.phone }}</ion-col>
-              <ion-col class="col-email">{{ user.email }}</ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </div>
-
-      <div *ngIf="searchTerm && !isSearching && !searchResults" class="no-results">
-        <ion-icon name="search-outline" size="large"></ion-icon>
-        <p>No se encontraron resultados para "{{ searchTerm }}"</p>
-      </div>
-
-      <div *ngIf="usersByRole.length === 0 && !isLoadingUsers && !searchTerm" class="no-users">
-        <ion-icon name="people-outline"></ion-icon>
-        <p>No hay usuarios registrados</p>
-      </div>
-    </ion-segment-content>
-    <ion-segment-content id="third">
-      
-    </ion-segment-content>
-    <ion-segment-content id="fourth">
-
-    </ion-segment-content>
+        type="submit" 
+        [disabled]="editForm.invalid || isUpdating">
+        
+        <ion-spinner *ngIf="isUpdating"></ion-spinner>
+        <span *ngIf="!isUpdating">Actualizar datos</span>
+      </ion-button>
+    </form>
+  </ion-segment-content>
   </ion-segment-view>
 </div>

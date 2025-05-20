@@ -14,7 +14,6 @@ const routes: Routes = [
   },
   {
     path: 'login',
-     canActivate: [NoAuthGuard],
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
@@ -37,19 +36,14 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    // canActivate: [AuthGuard, RoleGuard],
+    canActivate: [AuthGuard, RoleGuard],
     data: { role: 'admin' },
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
     path: 'change-password',
-    canActivate: [NoAuthGuard],
     component:ChangePasswordComponent
   },
-  {
-    path: 'test',
-    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
-  }
 
 
 ];

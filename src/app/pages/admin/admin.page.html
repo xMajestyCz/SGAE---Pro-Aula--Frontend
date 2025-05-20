@@ -58,7 +58,11 @@
           <ion-icon name="cloudy-sharp" color="new7"></ion-icon>
         </div>
         
-        <app-form *ngIf="showForm" [selectedRole]="selectedRole"></app-form>
+        <div class="form-container">
+          <ion-spinner name="crescent" *ngIf="loadingRole"></ion-spinner>
+          <app-form *ngIf="!loadingRole && showForm" [selectedRole]="selectedRole"></app-form>
+        </div>
+
         
         <div class="flex-bottom">
           <ion-icon name="leaf" color="new8" size="large"></ion-icon>
