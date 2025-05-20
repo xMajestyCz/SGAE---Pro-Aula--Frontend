@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class AdminPage implements OnInit {
   selectedRole: string = '';
+  loadingRole = false;
   isLoggingOut = false;
   showForm: boolean = false;
   roleNames: {[key: string]: string} = {
@@ -32,10 +33,26 @@ export class AdminPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(): void {
+    this.resetRoleState();
+  }
+
+  private resetRoleState() {
+    this.selectedRole = '';
+    this.loadingRole = false;
+    this.showForm = false;
+  }
+
   async selectRole(role: string) {
+    this.loadingRole = true;
     this.selectedRole = role;
-    this.showForm = true;
+    this.showForm = false;
     await this.menuCtrl.close();
+
+    setTimeout(() => {
+    this.loadingRole = false;
+    this.showForm = true;
+  }, 1000);
   }
 
   getRoleTitle(): string {
@@ -66,17 +83,14 @@ export class AdminPage implements OnInit {
       this.isLoggingOut = true;
       await loading.present();
       
-      // Ejecutar el logout
       this.authService.logout();
       
-      // Redirigir al login después de un breve retraso
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 500);
       
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
-      // Aquí podrías mostrar un toast de error
     } finally {
       this.isLoggingOut = false;
       await loading.dismiss();

@@ -42,7 +42,6 @@ const routes: Routes = [
   },
   {
     path: 'change-password',
-    canActivate: [NoAuthGuard],
     component:ChangePasswordComponent
   }
 

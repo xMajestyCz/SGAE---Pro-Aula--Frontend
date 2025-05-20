@@ -6,13 +6,30 @@ import { MainComponent } from './components/main/main.component';
 import { FormComponent } from './components/form/form.component';
 import { ReportComponent } from './components/report/report.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { LettersOnlyDirective } from './directives/input-restriction.directive';
+import { NumbersOnlyDirective } from './directives/input-restriction.directive';
 
 @NgModule({
-  declarations: [MainComponent, FormComponent, ReportComponent,ChangePasswordComponent],
+  declarations: [
+    MainComponent, 
+    FormComponent, 
+    ReportComponent,
+    ChangePasswordComponent,
+    LettersOnlyDirective,
+    NumbersOnlyDirective,
+  ],
   imports: [
     CommonModule, IonicModule, FormsModule,ReactiveFormsModule
   ],
-  exports: [MainComponent, FormComponent, ReportComponent,ReactiveFormsModule]
+  exports: [
+    MainComponent, 
+    FormComponent, 
+    ReportComponent,
+    ReactiveFormsModule,
+    ChangePasswordComponent,
+    LettersOnlyDirective,
+    NumbersOnlyDirective,
+  ]
 })
 
 export class SharedModule { }
