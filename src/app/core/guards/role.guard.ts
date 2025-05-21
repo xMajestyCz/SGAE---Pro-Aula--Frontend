@@ -6,7 +6,7 @@ import { AlertService } from "src/app/shared/services/alert.service";
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
-  constructor(private router: Router, private alertService: AlertService) {
+  constructor( private alertService: AlertService) {
 
   }
 

@@ -7,7 +7,7 @@ import { AlertService } from "src/app/shared/services/alert.service";
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private alertService: AlertService) {
+  constructor( private alertService: AlertService) {
 
   }
 
