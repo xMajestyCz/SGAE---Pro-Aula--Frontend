@@ -1,3 +1,28 @@
-<p>
-  enrollment works!
-</p>
+<div class="enrollment-container">
+  <ion-segment  (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="first" content-id="first">
+      <ion-icon name="receipt-sharp"></ion-icon>
+      <ion-label>Matricular</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="second" content-id="second">
+      <ion-icon name="search-circle-sharp"></ion-icon>
+      <ion-label>Consultar matricula</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="third" content-id="third">
+      <ion-icon name="swap-horizontal-sharp"></ion-icon>
+      <ion-label>Modificar matricula</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment-view>
+    <ion-segment-content [hidden]="selectedTab !== 'first'" id="first">
+sss
+    </ion-segment-content>
+    <ion-segment-content [hidden]="selectedTab !== 'second'" id="second" >
+ccc
+    </ion-segment-content>
+    <ion-segment-content [hidden]="selectedTab !== 'third'" id="third">
+
+    </ion-segment-content>
+  </ion-segment-view>
+</div>

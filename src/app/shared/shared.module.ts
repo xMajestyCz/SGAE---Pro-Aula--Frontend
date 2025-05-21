@@ -13,6 +13,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 // Directivas
 import { LettersOnlyDirective } from './directives/input-restriction.directive';
 import { NumbersOnlyDirective } from './directives/input-restriction.directive';
+import { EnrollmentComponent } from './components/enrollment/enrollment.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NumbersOnlyDirective } from './directives/input-restriction.directive';
     ReportComponent, 
     ChangePasswordComponent, 
     LettersOnlyDirective, 
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    EnrollmentComponent
   ],
   imports: [
     CommonModule, 
@@ -38,7 +40,9 @@ import { NumbersOnlyDirective } from './directives/input-restriction.directive';
     ReactiveFormsModule, 
     ChangePasswordComponent, 
     LettersOnlyDirective, 
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    EnrollmentComponent
+
   ]
 })
 export class SharedModule { }

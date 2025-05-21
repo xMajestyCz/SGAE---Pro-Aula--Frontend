@@ -80,7 +80,7 @@
               </ion-card-header>
             
               <ion-card-content>
-                
+                <ng-content select="[first]"></ng-content>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -91,7 +91,7 @@
                 <ion-card-header>
                   <ion-card-title>{{ ionCardTitle2 }}</ion-card-title>
                 </ion-card-header>
-              
+                <ng-content select="[second]"></ng-content>
                 <ion-card-content>
                 </ion-card-content>
               </ion-card>
