@@ -25,10 +25,6 @@
             <ion-icon slot="end" [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
               (click)="togglePasswordVisibility()" style="cursor: pointer; padding-right: 10px;"></ion-icon>
           </ion-item>
-          <p *ngIf="loginForm.controls['password'].hasError('incorrect')" class="error-text">
-             Contraseña incorrecta. Inténtalo de nuevo.
-          </p>
-          
 
           <ion-button expand="block" class="primary" [disabled]="!loginForm.valid || isLoading" (click)="login()">
             <ion-spinner *ngIf="isLoading"></ion-spinner>

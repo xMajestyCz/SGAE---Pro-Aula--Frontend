@@ -1,10 +1,10 @@
 ion-content {
   --background: #B2C8BE;
   padding: 16px;
-  overflow: hidden !important;
 }
 
 .login-box {
+  width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -19,7 +19,9 @@ ion-card {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  width: 500px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -29,7 +31,6 @@ ion-card {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   }
 }
-
 
 ion-header {
   grid-area: header;
@@ -62,15 +63,18 @@ ion-card-header {
   margin: 10px;
   color: #555;
 }
+
 ion-img {
-  width: 100px; 
-  height: 100px;
-  border-radius: 50%; 
-  object-fit: cover; 
-  display: block; 
-  margin: auto; 
+  width: 20vw;
+  max-width: 100px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: auto;
   overflow: hidden;
 }
+
 ion-card-content {
   grid-area: form;
   display: flex;
@@ -91,35 +95,37 @@ ion-card-content {
     display: block;
   }
 
-  ion-item{
+  ion-item {
     position: relative;
-   margin-bottom: 10px;
+    margin-bottom: 10px;
+
   }
+
   ion-input {
     --padding-start: 40px;
-    --padding-end: 12px;
+    --padding-end: 40px;
     flex: 1;
     width: 100%;
     max-width: 100%;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd; 
     border-radius: 8px;
     font-size: 1rem;
     padding-right: 30px;
-    padding-left: 30px; 
+    padding-left: 30px;
+    box-sizing: border-box;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
-      &:hover{
-      border: 1px solid #ED9B91;
+    &:hover {
+      border-color: #ED9B91;
       outline: none;
-    
-  }
+    }
 
-  ion-input:focus-within {
-    border-color: #ED9B91;
-    box-shadow: 0 0 0 2px rgba(237, 155, 145, 0.2);
-  }
-  
+    &:focus-within {
+      border-color: #ED9B91;
+      box-shadow: 0 0 0 2px rgba(237, 155, 145, 0.2);
+    }
+
   }
 
   ion-button {
@@ -129,13 +135,11 @@ ion-card-content {
     font-weight: bold;
     color: #fff;
 
-    
     &:hover {
       filter: brightness(1.1);
       transform: scale(1.02);
       transition: all 0.2s ease;
     }
-    
   }
 
   ion-footer {
@@ -147,7 +151,7 @@ ion-card-content {
     color: #555;
     text-decoration: none;
     font-size: 0.9rem;
-     transition: color 0.2s ease;
+    transition: color 0.2s ease;
   }
 
   ion-footer a:hover {
@@ -155,7 +159,7 @@ ion-card-content {
     color: #ED9B91;
   }
 
-  ion-icon{
+  ion-icon {
     position: absolute;
     transform: translateY(-50%);
     font-size: 20px;
@@ -163,39 +167,39 @@ ion-card-content {
     color: #757575;
     transition: color 0.3s ease;
   }
+
   /* Estilos para el icono del ojo */
-   ion-icon[slot="end"] {
-    right: 10px;
+  ion-icon[slot='end'] {
+    right: 15px;
     cursor: pointer;
     z-index: 10;
 
-    &:hover{
+    &:hover {
       color: #ED9B91;
     }
   }
 
-  ion-icon[slot="start"] {
-    left: 20px; 
-    pointer-events: none; 
+  ion-icon[slot='start'] {
+    left: 30px;
+    pointer-events: none;
   }
-
-  
 }
 
-
-  @media (max-width: 500px) {
-    ion-content{
-        overflow: hidden !important;
-    }
-    ion-card {
-      width: 90vw;
-    }
-  
-    ion-input {
-      font-size: 0.95rem;
-    }
-  
-    ion-card-title {
-      font-size: 1.5rem;
-    }
+@media (max-width: 500px) {
+  ion-content {
+    overflow: hidden !important;
   }
+
+  ion-card {
+    width: 90vw;
+    transition: none;
+  }
+
+  ion-input {
+    font-size: 0.95rem;
+  }
+
+  ion-card-title {
+    font-size: 1.5rem;
+  }
+}

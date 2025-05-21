@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     private spinnerService: SpinnerService,
     private loggerService: LoggerService,
     private navCtrl: NavController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -48,38 +48,36 @@ export class LoginPage implements OnInit {
       next: response => {
         const token = response.access;
         const jwtpaylod = jwtDecode<JWTPayload>(token);
-        const role=jwtpaylod.user_type;
-        localStorage.setItem('UserRole',role)
+        const role = jwtpaylod.user_type;
+        localStorage.setItem('UserRole', role);
         this.toastService.success('Inicio de sesión exitoso.');
-        this.loggerService.logInfo('Usuario autenticado con éxito.'); 
-       
-        console.log('response:',role)
+        this.loggerService.logInfo('Usuario autenticado con éxito.');
+
+        console.log('response:', role);
         switch (role) {
           case 'admin':
-            this.navCtrl.navigateRoot('/admin'); 
+            this.navCtrl.navigateRoot('/admin');
             break;
           case 'student':
-            this.navCtrl.navigateRoot('/student'); 
+            this.navCtrl.navigateRoot('/student');
             break;
-            case 'teacher':
-              this.navCtrl.navigateRoot('/teacher'); 
-              break;
+          case 'teacher':
+            this.navCtrl.navigateRoot('/teacher');
+            break;
           case 'secretary':
-            this.navCtrl.navigateRoot('/secretary'); 
+            this.navCtrl.navigateRoot('/secretary');
             break;
           default:
-            this.navCtrl.navigateRoot('/login'); 
+            this.navCtrl.navigateRoot('/login');
             break;
         }
-
-
       },
       error: error => {
-        if (error.status === 400) {
-          this.loginForm.controls['password'].setErrors({ incorrect: true }); 
+        if (error.status === 401) {
+          this.loginForm.controls['username'].setErrors({ incorrect: true });
+          this.loginForm.controls['password'].setErrors({ incorrect: true });
           this.toastService.error('Usuario o contraseña incorrectos.');
-          this.loggerService.logWarning('Intento de inicio de sesión fallido.');
-        } else {
+        } else if (error.status === 0) {
           this.toastService.error('Error de conexión con el servidor.');
         }
         this.isLoading = false;
