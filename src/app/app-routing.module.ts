@@ -45,9 +45,20 @@ const routes: Routes = [
     component:ChangePasswordComponent
   },
   {
-    path: 'test',
-    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
+    path: 'coordinator',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'academic_coordinator' },
+    loadChildren: () => import('./pages/coordinator/coordinator.module').then( m => m.CoordinatorPageModule)
   },
+  {
+    path: 'schedule',
+    loadChildren: () => import('./pages/schedule/schedule.module').then( m => m.SchedulePageModule)
+  },
+  {
+    path: 'create-schedule',
+    loadChildren: () => import('./pages/create-schedule/create-schedule.module').then( m => m.CreateSchedulePageModule)
+  }
+
 
 
 ];

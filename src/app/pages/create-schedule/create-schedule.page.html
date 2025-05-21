@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="text-center">Crear horario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Asignar clase</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="form-section">
+
+      <!-- Día -->
+      <ion-item>
+        <ion-label position="floating">Día</ion-label>
+        <ion-select [(ngModel)]="form.day" interface="popover">
+          <ion-select-option *ngFor="let d of days" [value]="d">{{ d }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Hora inicio -->
+      <ion-item>
+        <ion-label position="floating">Hora de inicio</ion-label>
+        <ion-datetime display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="form.startTime" presentation="time"></ion-datetime>
+      </ion-item>
+
+      <!-- Hora fin -->
+      <ion-item>
+        <ion-label position="floating">Hora de fin</ion-label>
+        <ion-datetime display-format="HH:mm" picker-format="HH:mm" [(ngModel)]="form.endTime" presentation="time"></ion-datetime>
+      </ion-item>
+
+      <!-- Materia -->
+      <ion-item>
+        <ion-label position="floating">Materia</ion-label>
+        <ion-select [(ngModel)]="form.subject" interface="popover">
+          <ion-select-option *ngFor="let s of subjects" [value]="s">{{ s }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Aula -->
+      <ion-item>
+        <ion-label position="floating">Aula</ion-label>
+        <ion-input [(ngModel)]="form.room"></ion-input>
+      </ion-item>
+
+      <!-- Grupo -->
+      <ion-item>
+        <ion-label position="floating">Grupo</ion-label>
+        <ion-select [(ngModel)]="form.group" interface="popover">
+          <ion-select-option *ngFor="let g of groups" [value]="g">{{ g }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- Botón -->
+      <div class="ion-text-center" style="margin-top: 1rem;">
+        <ion-button expand="block" (click)="saveSchedule()">Guardar clase</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
       next: response => {
         const token = response.access;
         const jwtpaylod = jwtDecode<JWTPayload>(token);
-        const role=jwtpaylod.user_type;
+        const role= jwtpaylod.user_type;
         localStorage.setItem('UserRole',role)
         this.toastService.success('Inicio de sesión exitoso.');
         this.loggerService.logInfo('Usuario autenticado con éxito.'); 
@@ -66,6 +66,10 @@ export class LoginPage implements OnInit {
               break;
           case 'secretary':
             this.navCtrl.navigateRoot('/secretary'); 
+            break;
+          case 'academic_coordinator':
+            //ana.perezcor2@example.com
+            window.location.href = '/coordinator';
             break;
           default:
             this.navCtrl.navigateRoot('/login'); 

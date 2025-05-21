@@ -1,25 +1,24 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, Router} from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
 
-  constructor(private router:Router){
-
+  constructor(){
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-  const expectedRole=route.data['role'];
-  const UserRole= localStorage.getItem('UserRole');
+    const expectedRole=route.data['role'];
+    const UserRole= localStorage.getItem('UserRole');
 
-  if (UserRole === expectedRole) {
-    return true;
-  } else {
-    this.router.navigate(['/acceso-denegado']); 
-    return false;
-  }
+    if (UserRole === expectedRole) {
+      return true;
+    } else {
+      // this.router.navigate(['/acceso-denegado']); 
+      return false;
+    }
       
   }
 }

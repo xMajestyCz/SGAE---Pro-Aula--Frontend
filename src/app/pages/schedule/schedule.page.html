@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="text-center">Mi horario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openCreateScheduleModal()">
+        <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Tabla visual del horario -->
+  <ion-grid class="schedule-grid">
+    <ion-row class="header-row">
+      <ion-col size="2"><strong>Hora</strong></ion-col>
+      <ion-col *ngFor="let day of days"><strong>{{ day }}</strong></ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let time of times">
+      <ion-col size="2" class="time-cell">{{ time }}</ion-col>
+      <ion-col *ngFor="let day of days">
+        <ion-card *ngIf="getClassForSlot(day, time)" class="class-card">
+          <ng-container *ngIf="getClassForSlot(day, time) as slot">
+          <ion-card class="class-card">
+            <ion-card-content>
+              <strong>{{ slot.subject }}</strong><br>
+              <small>{{ slot.room }}</small><br>
+              <small>{{ slot.group }}</small>
+            </ion-card-content>
+          </ion-card>
+        </ng-container>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

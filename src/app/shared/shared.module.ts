@@ -12,6 +12,7 @@ import { RegisterTabComponent } from './components/users-form/register-tab/regis
 import { UserFormComponent } from './components/users-form/user-form/user-form.component';
 import { ListTabComponent } from './components/users-form/list-tab/list-tab.component';
 import { EditTabComponent } from './components/users-form/edit-tab/edit-tab.component';
+import { CreateScheduleModalComponent } from './components/create-schedule-modal/create-schedule-modal.component';
 
 const MODULES = [
   CommonModule,
@@ -27,7 +28,8 @@ const COMPONENTS = [
   RegisterTabComponent,
   UserFormComponent,
   ListTabComponent,
-  EditTabComponent
+  EditTabComponent,
+  CreateScheduleModalComponent
 ];
 const DIRECTIVES = [
   LettersOnlyDirective,

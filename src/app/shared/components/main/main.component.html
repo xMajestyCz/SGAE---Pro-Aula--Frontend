@@ -16,55 +16,70 @@
     <ion-label *nfIf="ionLabel3">{{ ionLabel3 }}</ion-label>
   </ion-item>
   <ion-segment-view>
-    <ion-segment-content id="first">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-card (click)="openModal()">
-              <ion-card-header>
-                <ion-card-title>Información personal</ion-card-title>
-              </ion-card-header>
-            
-              <ion-card-content>
-                <ion-icon name="information-circle" size="large" color="dark"></ion-icon>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>Cambiar contraseña</ion-card-title>
-              </ion-card-header>
-            
-              <ion-card-content>
-                <ion-icon name="keypad" size="large" color="dark"></ion-icon>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-          <ion-col>
-          <ion-card (click)="confirmLogout()" [disabled]="isLoadingLogout">
-            <ion-card-header>
-              <ion-card-title>Cerrar sesión</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-              <div class="logout-content">
-                <ion-icon 
-                  name="log-out-outline" 
-                  size="large" 
-                  color="dark" 
-                  *ngIf="!isLoadingLogout">
-                </ion-icon>
-                <ion-spinner 
-                  name="crescent" 
-                  *ngIf="isLoadingLogout">
-                </ion-spinner>
-              </div>
-            </ion-card-content>
-          </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-segment-content>
+  <ion-segment-content id="first">
+  <ion-grid>
+
+    <!-- PERFIL DE USUARIO (legible y balanceado) -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Perfil</ion-card-title>
+          </ion-card-header>
+          <ion-card-content class="profile-card-content" style="display: flex; align-items: center; gap: 1.5rem;">
+            <ion-avatar style="width: 100px; height: 100px; flex-shrink: 0;">
+              <img src="https://rosepng.com/wp-content/uploads/elementor/thumbs/s11728_ronaldo_with_bright_tone_and_with_different_pose_isola_2b9d9332-5cec-49ff-ab62-38c0706953c6_0-removebg-preview_11zon-qlqk9rn7jikql4da9wagfl48tp27v3fowrqc9cpaxs.png" alt="Foto de perfil" style="width: 100%; height: 100%; object-fit: cover;">
+            </ion-avatar>
+            <div style="flex-grow: 1;">
+              <h2 style="margin: 0; font-size: 1.4rem; color: #284353;">jesusadmin</h2>
+              <p style="margin: 0.3rem 0; font-size: 1.1rem; color: #284353;">Rol: admin</p>
+              <p style="margin: 0; font-size: 1.1rem; color: #284353;">ID: 1111</p>
+            </div>
+            <ion-button fill="clear" size="small" (click)="openModal()">Editar</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- ACCIONES: cambiar contraseña + cerrar sesión en una fila -->
+    <ion-row>
+      <ion-col size="6">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Cambiar contraseña</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="keypad" size="large" color="dark"></ion-icon>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card (click)="confirmLogout()" [disabled]="isLoadingLogout">
+          <ion-card-header>
+            <ion-card-title>Cerrar sesión</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="logout-content">
+              <ion-icon 
+                name="log-out-outline" 
+                size="large" 
+                color="dark" 
+                *ngIf="!isLoadingLogout">
+              </ion-icon>
+              <ion-spinner 
+                name="crescent" 
+                *ngIf="isLoadingLogout">
+              </ion-spinner>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-segment-content>
+
     <ion-segment-content id="second">
       <ion-grid>
         <ion-row>

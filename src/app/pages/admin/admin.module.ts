@@ -11,9 +11,6 @@ import { AdminPage } from './admin.page';
 @NgModule({
   imports: [
     SharedModule,
-    CommonModule,
-    FormsModule,
-    IonicModule,
     AdminPageRoutingModule
   ],
   declarations: [AdminPage]
