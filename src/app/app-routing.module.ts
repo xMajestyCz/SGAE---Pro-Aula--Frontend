@@ -43,7 +43,14 @@ const routes: Routes = [
   {
     path: 'change-password',
     component:ChangePasswordComponent
+  },
+  {
+    path: 'coordinator',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'coordinator' },
+    loadChildren: () => import('./pages/coordinator/coordinator.module').then( m => m.CoordinatorPageModule)
   }
+
 
 
 ];
