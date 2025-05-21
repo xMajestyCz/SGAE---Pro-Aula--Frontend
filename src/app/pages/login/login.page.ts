@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/Services/auth.service';
-import { LoggerService } from 'src/app/core/Services/logger.service';
 import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { JWTPayload } from 'src/app/shared/models/jwtpayload';
 import { jwtDecode } from 'jwt-decode';
+import { NavController } from '@ionic/angular';
+import { Inject } from '@angular/core';
+import { LoggerService } from 'src/app/core/Services/logger.service';
+
 
 @Component({
   selector: 'app-login',
@@ -18,14 +20,13 @@ export class LoginPage implements OnInit {
   loginForm!: FormGroup;
   showPassword = false;
   isLoading = false;
-
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private toastService: ToastService,
     private spinnerService: SpinnerService,
-    private loggerService: LoggerService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private loggerService: LoggerService
   ) { }
 
   ngOnInit() {
