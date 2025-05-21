@@ -1,0 +1,7 @@
+<ion-col>
+  <div class="upload-area" (click)="fileInput.click()">
+    <input #fileInput type="file" hidden (change)="handleFileInput($event)" />
+    <div *ngIf="!imagePreview">Subir imagen</div>
+    <div *ngIf="imagePreview"><img [src]="imagePreview" /><button (click)="removeImage()">X</button></div>
+  </div>
+</ion-col>

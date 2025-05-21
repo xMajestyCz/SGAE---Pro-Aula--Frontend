@@ -1,0 +1,213 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <!-- Información básica -->
+  <ion-item color="new7">
+    <ion-grid fixed>
+      <div class="title-flex">
+        <ion-icon name="information-circle-outline" size="large"></ion-icon>
+        <h4>Información básica</h4>
+      </div>
+      <ion-row>
+        <ion-col size="6">
+          <ion-input 
+            formControlName="first_name"
+            label="1° nombre" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="Rodrigo"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-input 
+            formControlName="second_name"
+            label="2° nombre" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="José">
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-input 
+            formControlName="first_lastname"
+            label="1° apellido" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="Morales"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-input 
+            formControlName="second_lastname"
+            label="2° apellido" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="del Campo"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-input 
+            formControlName="id_card"
+            label="Número de documento" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="1234567890"
+            maxlength="10" 
+            minlength="10"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="6">
+          <ion-input 
+            formControlName="birthdate"
+            type="date"
+            label="Fecha de nacimiento" 
+            label-placement="stacked" 
+            fill="outline"
+            required
+            [max]="role === 'estudiante' ? (maxBirthDateStudent | date:'yyyy-MM-dd') : (maxBirthDateOtherRoles | date:'yyyy-MM-dd')"
+            [min]="role === 'estudiante' ? (minBirthDateStudent | date:'yyyy-MM-dd') : (minBirthDateOtherRoles | date:'yyyy-MM-dd')">
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-input 
+            formControlName="place_of_birth"
+            label="Lugar de nacimiento" 
+            label-placement="floating" 
+            placeholder="Lugar de nacimiento" 
+            fill="outline"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <!-- Subida de foto -->
+        <ion-col class="image-container">
+          <div class="upload-area" (click)="fileInput.click()">
+            <input 
+              #fileInput
+              type="file" 
+              (change)="handleFileInput($event)"
+              accept="image/*"
+              style="display: none">
+            
+            <div *ngIf="!form.get('image')?.value" class="upload-prompt">
+              <ion-icon name="camera-outline" size="large"></ion-icon>
+              <ion-label>Foto de perfil (Opcional)</ion-label>
+            </div>
+            
+            <div *ngIf="form.get('image')?.value" class="image-preview">
+              <img [src]="form.get('image')?.value" alt="Preview">
+              <ion-button 
+                fill="clear" 
+                color="light"
+                (click)="removeImage($event)"
+                class="remove-button">
+                <ion-icon name="close-circle" color="danger"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <!-- Información de contacto -->
+  <ion-item color="new7">
+    <ion-grid fixed>
+      <div class="title-flex">
+        <ion-icon name="call-outline" size="large"></ion-icon>
+        <h4>Información de contacto</h4>
+      </div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-input 
+            formControlName="address"
+            label="Dirección de residencia" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="Dirección completa"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-input 
+            formControlName="phone"
+            type="tel"
+            label="Teléfono" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="3001234567"
+            maxlength="10" 
+            minlength="10"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-input 
+            formControlName="email"
+            type="email"
+            label="Correo electrónico" 
+            label-placement="floating" 
+            fill="outline" 
+            placeholder="rodrigo.morales@gmail.com"
+            required>
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <!-- Acudiente (solo para estudiantes) -->
+  <ion-item color="new7" *ngIf="role === 'estudiante'">
+    <ion-grid fixed>
+      <div class="important">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <ion-label>Antes de registrar un estudiante, verifique que el acudiente esté registrado</ion-label>
+      </div>
+      <div class="title-flex">
+        <ion-icon name="people-circle-sharp" size="large"></ion-icon>
+        <h4>Acudiente</h4>
+      </div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-select 
+            formControlName="guardian"
+            label="Selecciona el acudiente" 
+            label-placement="floating" 
+            interface="modal" 
+            justify="space-between"
+            required>
+            <ion-select-option 
+              *ngFor="let guardian of guardians" 
+              [value]="guardian.id">
+              {{ guardian.first_name }} {{ guardian.second_name || '' }} 
+              {{ guardian.first_lastname }} {{ guardian.second_lastname || '' }}
+              ({{ guardian.id_card }})
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <!-- Botón de envío -->
+  <ion-button 
+    expand="block" 
+    shape="round" 
+    color="new8" 
+    type="submit" 
+    [disabled]="form.invalid || isLoading">
+    
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <span *ngIf="!isLoading">Guardar datos</span>
+  </ion-button>
+</form>

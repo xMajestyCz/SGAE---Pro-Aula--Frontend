@@ -22,7 +22,10 @@ export class SupabaseService {
     );
   }
 
-  async uploadImage(bucket: string, path: string, file: File): Promise<string> {
+  async uploadImage(path: string, image: string): Promise<string> {
+    const bucket = environment.supabaseBucket
+    const blob = await (await fetch(image)).blob();
+    const file = new File([blob], `profile-${Date.now()}.png`, { type: 'image/png' });
     const fileName = `${Date.now()}_${file.name}`;
     const filePath = `${path}/${fileName}`;
     

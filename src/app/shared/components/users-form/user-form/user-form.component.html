@@ -1,0 +1,55 @@
+<div class="container">
+  <ion-segment [(ngModel)]="selectedTab" color="new7">
+    <ion-segment-button value="first">
+      <ion-icon name="receipt-sharp"></ion-icon>
+      <ion-label>Registrar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="second">
+      <ion-icon name="search-circle-sharp"></ion-icon>
+      <ion-label>Buscar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="third">
+      <ion-icon name="swap-horizontal-sharp"></ion-icon>
+      <ion-label>Modificar</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment-view>
+  <!-- Registrar -->
+  <ion-segment [hidden]="selectedTab !== 'first'" id="first">
+    <app-register-tab
+      [form]="form"
+      [role]="role"
+      [guardians]="guardians"
+      [isLoading]="isLoading"
+      [maxBirthDateStudent]="maxBirthDateStudent"
+      [minBirthDateStudent]="minBirthDateStudent"
+      [maxBirthDateOtherRoles]="maxBirthDateOtherRoles"
+      [minBirthDateOtherRoles]="minBirthDateOtherRoles"
+      (submitForm)="onSubmit()"
+    >
+    </app-register-tab>
+    </ion-segment>
+  <!-- Buscar y Editar vendrán después -->
+  <div *ngIf="selectedTab === 'second'">
+    <app-list-tab
+      [role]="role"
+      [users]="usersByRole"
+      [isLoading]="isLoadingUsers"
+      (userSelected)="handleUserSelected($event)"
+      (deleteUser)="handleDeleteUser($event)"
+    >
+    </app-list-tab>
+  </div>
+  <div *ngIf="selectedTab === 'third'">
+    <div *ngIf="selectedTab === 'third' && editUser">
+  <app-edit-tab
+    [user]="editUser"
+    [isLoading]="isLoading"
+    (saveEdit)="handleSaveEdit($event)">
+  </app-edit-tab>
+</div>
+
+  </div>
+  </ion-segment-view>
+</div>

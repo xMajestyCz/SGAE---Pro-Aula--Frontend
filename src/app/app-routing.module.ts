@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'change-password',
     component:ChangePasswordComponent
   },
+  {
+    path: 'test',
+    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
+  },
 
 
 ];

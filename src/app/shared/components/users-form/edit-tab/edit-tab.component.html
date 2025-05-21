@@ -1,0 +1,81 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <ion-item color="new7">
+    <ion-grid fixed>
+      <div class="title-flex">
+        <ion-icon name="call-outline" size="large"></ion-icon>
+        <h4>Información de contacto</h4>
+      </div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-input
+            formControlName="address"
+            label="Dirección de residencia"
+            label-placement="floating"
+            fill="outline"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-input
+            formControlName="phone"
+            type="tel"
+            label="Teléfono"
+            label-placement="floating"
+            fill="outline"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-input
+            formControlName="email"
+            type="email"
+            label="Correo electrónico"
+            label-placement="floating"
+            fill="outline"
+            required>
+          </ion-input>
+        </ion-col>
+
+        <!-- Subida de imagen -->
+        <ion-col class="image-container">
+          <div class="upload-area" (click)="fileInputRef.nativeElement.click()">
+            <input
+              #fileInput
+              type="file"
+              (change)="handleFileInput($event)"
+              accept="image/*"
+              style="display: none" />
+
+            <div *ngIf="!imagePreview" class="upload-prompt">
+              <ion-icon name="camera-outline" size="large"></ion-icon>
+              <ion-label>Foto de perfil (Opcional)</ion-label>
+            </div>
+
+            <div *ngIf="imagePreview" class="image-preview">
+              <img [src]="imagePreview" alt="Preview" />
+              <ion-button
+                fill="clear"
+                color="light"
+                (click)="removeImage($event)"
+                class="remove-button">
+                <ion-icon name="close-circle" color="danger"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-button
+    expand="block"
+    shape="round"
+    color="new8"
+    type="submit"
+    [disabled]="form.invalid || isLoading">
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <span *ngIf="!isLoading">Actualizar datos</span>
+  </ion-button>
+</form>

@@ -130,7 +130,7 @@ export class FormComponent {
         imageUrl = await this.supabaseService.uploadImage(
           environment.supabaseBucket,
           this.selectedRole,
-          file
+          //file
         );
       }
 
@@ -336,7 +336,7 @@ export class FormComponent {
             imageUrl = await this.supabaseService.uploadImage(
               environment.supabaseBucket,
               this.selectedRole,
-              fileInput.files[0]
+              //fileInput.files[0]
             );
           } else if (!this.editSelectedImage) {
             imageUrl = null;

@@ -8,6 +8,10 @@ import { ReportComponent } from './components/report/report.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { LettersOnlyDirective } from './directives/input-restriction.directive';
 import { NumbersOnlyDirective } from './directives/input-restriction.directive';
+import { RegisterTabComponent } from './components/users-form/register-tab/register-tab.component';
+import { UserFormComponent } from './components/users-form/user-form/user-form.component';
+import { ListTabComponent } from './components/users-form/list-tab/list-tab.component';
+import { EditTabComponent } from './components/users-form/edit-tab/edit-tab.component';
 
 const MODULES = [
   CommonModule,
@@ -20,6 +24,10 @@ const COMPONENTS = [
   FormComponent, 
   ReportComponent,
   ChangePasswordComponent,
+  RegisterTabComponent,
+  UserFormComponent,
+  ListTabComponent,
+  EditTabComponent
 ];
 const DIRECTIVES = [
   LettersOnlyDirective,

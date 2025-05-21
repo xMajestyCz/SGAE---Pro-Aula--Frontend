@@ -1,0 +1,71 @@
+<ion-searchbar
+  [formControl]="searchControl"
+  color="new8"
+  show-clear-button="always"
+  clear-icon="trash-bin"
+  placeholder="Buscar por documento"
+  maxlength="10"
+  inputmode="numeric"
+  type="tel">
+</ion-searchbar>
+
+<!-- Spinner -->
+<div *ngIf="isSearching || isLoading" class="loading-spinner">
+  <ion-spinner name="crescent"></ion-spinner>
+  <ion-label>{{ isSearching ? 'Buscando...' : 'Cargando lista...' }}</ion-label>
+</div>
+
+<!-- Resultado de búsqueda -->
+<div *ngIf="searchResult && !isSearching" class="table-container">
+  <ion-grid>
+    <ion-row class="header-row">
+      <ion-col *ngFor="let header of headers">{{ header }}</ion-col>
+    </ion-row>
+    <ion-row class="user-row" (click)="onUserClick(searchResult)">
+      <ion-col>{{ searchResult.first_name }} {{ searchResult.first_lastname }}</ion-col>
+      <ion-col>{{ searchResult.id_card }}</ion-col>
+      <ion-col>{{ searchResult.phone }}</ion-col>
+      <ion-col>{{ searchResult.email }}</ion-col>
+      <ion-col>
+        <ion-button color="new8" (click)="onDelete(searchResult); $event.stopPropagation()">
+          <ion-icon name="close-circle-sharp"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<!-- Lista completa si no hay búsqueda -->
+<div *ngIf="!searchControl.value && !searchResult && !isLoading" class="table-container">
+  <ion-grid>
+    <ion-row class="header-row">
+      <ion-col *ngFor="let header of headers">{{ header }}</ion-col>
+    </ion-row>
+    <ion-row
+      *ngFor="let user of users; trackBy: trackById"
+      class="user-row"
+      (click)="onUserClick(user)">
+      <ion-col>{{ user.first_name }} {{ user.first_lastname }}</ion-col>
+      <ion-col>{{ user.id_card }}</ion-col>
+      <ion-col>{{ user.phone }}</ion-col>
+      <ion-col>{{ user.email }}</ion-col>
+      <ion-col>
+        <ion-button color="new8" (click)="onDelete(user); $event.stopPropagation()">
+          <ion-icon name="close-circle-sharp"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<!-- No hay resultados -->
+<div *ngIf="searchControl.value && !searchResult && !isSearching" class="no-results">
+  <ion-icon name="search-outline" size="large"></ion-icon>
+  <p>No se encontraron resultados para "{{ searchControl.value }}"</p>
+</div>
+
+<!-- Lista vacía -->
+<div *ngIf="users.length === 0 && !isLoading && !searchControl.value" class="no-users">
+  <ion-icon name="people-outline"></ion-icon>
+  <p>No hay usuarios registrados</p>
+</div>
