@@ -1,0 +1,30 @@
+<div class="container">
+  <ion-segment color="new7" [scrollable]="true">
+    <ion-segment-button value="first" content-id="first">
+      <ion-icon name="receipt-sharp"></ion-icon>
+      <ion-label>Registrar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="second" content-id="second">
+      <ion-icon name="search-circle-sharp"></ion-icon>
+      <ion-label>Buscar</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="third" content-id="third">
+      <ion-icon name="swap-horizontal-sharp"></ion-icon>
+      <ion-label>Modificar</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
+  <ion-segment-view>
+    <ion-segment-content id="first">
+      <p>Tab 1</p>
+    </ion-segment-content>
+
+  <ion-segment-content id="second">
+    <p>Tab 2</p>
+  </ion-segment-content>
+
+  <ion-segment-content id="third">
+    <p>Tab 3</p>
+  </ion-segment-content>
+  </ion-segment-view>
+</div>

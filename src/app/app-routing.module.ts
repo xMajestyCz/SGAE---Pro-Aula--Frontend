@@ -57,6 +57,10 @@ const routes: Routes = [
   {
     path: 'create-schedule',
     loadChildren: () => import('./pages/create-schedule/create-schedule.module').then( m => m.CreateSchedulePageModule)
+  },
+  {
+    path: 'test',
+    loadChildren: () => import('./pages/test/test.module').then( m => m.TestPageModule)
   }
 
 
