@@ -1,0 +1,32 @@
+<ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Preguntas frecuentes</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                <ion-icon name="help-circle" size="large" color="dark"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Contactar</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                <ion-icon name="mail" size="large" color="dark"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+            <ion-card (click)="openReportModal()">
+              <ion-card-header>
+                <ion-card-title>Reportar problema</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-icon name="bug" size="large" color="dark"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>

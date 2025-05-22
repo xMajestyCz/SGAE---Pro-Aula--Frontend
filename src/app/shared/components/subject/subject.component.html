@@ -1,0 +1,36 @@
+<ion-segment [scrollable]="true">
+  <ion-segment-button value="first-subject" content-id="first-subject">
+    <ion-label>Registrar</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="second-subject" content-id="second-subject">
+    <ion-label>Modificar</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="third-subject" content-id="third-subject">
+    <ion-label>Asignar</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="fourth-subject" content-id="fourth-subject">
+    <ion-label>Eliminar Asignación</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<ion-segment-view>
+  <ion-segment-content id="first-subject">
+    <ion-searchbar placeholder="Buscar asignatura" inputmode="decimal" type="decimal" [debounce]="250" showCancelButton="always"></ion-searchbar>
+    <ion-input type="text" placeholder="Nombre de la asignatura"></ion-input>
+    <ion-input type="text" placeholder="Código de la asignatura"></ion-input>
+    <div>
+      <ion-label>Lista de asignaturas</ion-label>
+      <ion-list>
+        
+      </ion-list>
+    </div>
+  </ion-segment-content>
+  <ion-segment-content id="second-subject">
+    
+  </ion-segment-content>
+  <ion-segment-content id="third-subject">
+
+  </ion-segment-content>
+  <ion-segment-content id="fifth-subject">
+    
+  </ion-segment-content>
+</ion-segment-view>

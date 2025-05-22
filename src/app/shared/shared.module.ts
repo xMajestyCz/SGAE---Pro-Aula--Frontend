@@ -14,6 +14,10 @@ import { ListTabComponent } from './components/users-form/list-tab/list-tab.comp
 import { EditTabComponent } from './components/users-form/edit-tab/edit-tab.component';
 import { CreateScheduleModalComponent } from './components/create-schedule-modal/create-schedule-modal.component';
 import { CreateSchedulePanelComponent } from './components/schedule/create-schedule-panel/create-schedule-panel.component';
+import { SubjectComponent } from './components/subject/subject.component';
+import { SupportComponent } from './components/support/support.component';
+import { CardComponent } from './components/cards/card/card.component';
+import { AccountComponent } from './components/cards/account/account.component';
 
 const MODULES = [
   CommonModule,
@@ -31,7 +35,11 @@ const COMPONENTS = [
   ListTabComponent,
   EditTabComponent,
   CreateScheduleModalComponent,
-  CreateSchedulePanelComponent
+  CreateSchedulePanelComponent,
+  SubjectComponent,
+  SupportComponent,
+  CardComponent,
+  AccountComponent
 ];
 const DIRECTIVES = [
   LettersOnlyDirective,

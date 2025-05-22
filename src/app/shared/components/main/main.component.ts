@@ -6,6 +6,8 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router'; 
 import { ReportComponent } from '../report/report.component';
 import { ToastService } from '../../services/toast.service';
+import { jwtDecode } from 'jwt-decode';
+import { UserService } from 'src/app/core/Services/user.service';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +24,7 @@ export class MainComponent implements OnInit {
   @Input() ionCardTitle3 = '';
   isLoaded = false;
   isLoadingLogout = false; 
+  userImage: string | null = null;
 
   constructor(
     private modalService: ModalService, 
@@ -29,14 +32,16 @@ export class MainComponent implements OnInit {
     private authService: AuthService,
     private loadingCtrl: LoadingController, 
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private userService: UserService,
   ) { }
 
-  ngOnInit() {
-    this.cargarDatos();
+  async ngOnInit() {
+    await this.loadUserImage();
+    this.loadData();
   }
 
-  async cargarDatos() {
+  async loadData() {
     await new Promise(resolve => setTimeout(resolve, 1500));
     this.isLoaded = true;
   }
@@ -85,22 +90,20 @@ export class MainComponent implements OnInit {
     }
   }
 
-  async openReportModal() {
-    const modal = await this.modalService.open(
-      ReportComponent,
-      {},
-      'report-modal'
-    );
-    
-    modal.onDidDismiss().then((result: any) => {
-      if (result.data?.success) {
-        this.toastService.show(
-          'Tu problema ha sido reportado exitosamente',
-          'success',
-          3000,
-          'top'
-        );
+  async loadUserImage() {
+    const token = this.authService.currentToken;
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<any>(token);
+        const userId = decodedToken.user_id; 
+        const role = localStorage.getItem('UserRole');
+        
+        if (userId && role) {
+          this.userImage = await this.userService.getUserImage(userId, role);
+        }
+      } catch (error) {
+        console.error('Error cargando imagen:', error);
       }
-    });
+    }
   }
 }

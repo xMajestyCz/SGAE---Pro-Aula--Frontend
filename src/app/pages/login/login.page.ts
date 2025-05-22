@@ -68,8 +68,7 @@ export class LoginPage implements OnInit {
             this.navCtrl.navigateRoot('/secretary'); 
             break;
           case 'academic_coordinator':
-            //ana.perezcor2@example.com
-            window.location.href = '/coordinator';
+            this.navCtrl.navigateRoot('/coordinator'); 
             break;
           default:
             this.navCtrl.navigateRoot('/login'); 

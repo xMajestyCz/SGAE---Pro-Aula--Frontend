@@ -1,7 +1,59 @@
 <app-main 
-[ionLabel1]="'Secretario/a'"
+[ionLabel1]="'Coordinador/a'"
 [ionLabel2]="'Nombre'"
 [ionCardTitle1]="'Grupos'"
 [ionCardTitle2]="'Horarios'"
 [ionCardTitle3]="'Asignaturas'"
 ></app-main>
+
+
+<div>
+  <ion-segment color="new" [scrollable]="true" value="second">
+    <ion-segment-button value="first" content-id="first">
+      <ion-label>Cuenta</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="second" content-id="second">
+      <ion-label>Coordinador/a</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="third" content-id="third">
+      <ion-label>Soporte</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-item class="sub-header">
+    <ion-label>Label2</ion-label>
+    <ion-label>Label3</ion-label>
+  </ion-item>
+  <ion-segment-view>
+    <ion-segment-content id="first">
+      <app-account></app-account>
+    </ion-segment-content>
+    <ion-segment-content id="second">
+      <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Grupos</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card expand="block" class="log">
+                <ion-card-header>
+                  <ion-card-title>Asignaturas</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>  
+                  <app-subject></app-subject>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-segment-content>
+    <ion-segment-content id="third">
+      <app-support></app-support>
+    </ion-segment-content>
+  </ion-segment-view>
+</div>

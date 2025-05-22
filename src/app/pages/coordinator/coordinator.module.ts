@@ -10,9 +10,6 @@ import { CoordinatorPage } from './coordinator.page';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
     CoordinatorPageRoutingModule,
     SharedModule
   ],

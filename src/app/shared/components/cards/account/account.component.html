@@ -1,0 +1,53 @@
+<ion-grid>
+        <ion-row>
+          <ion-col size="6">
+            <ion-card>
+              <img [src]="userImage || 'https://ionicframework.com/docs/img/demos/card-media.png'" 
+              alt="Foto de perfil del usuario" />
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card (click)="openModal()">
+              <ion-card-header>
+                <ion-card-title>Información personal</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                <ion-icon name="information-circle" size="large" color="dark"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>Cambiar contraseña</ion-card-title>
+              </ion-card-header>
+            
+              <ion-card-content>
+                <ion-icon name="keypad" size="large" color="dark"></ion-icon>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="6">
+          <ion-card (click)="confirmLogout()" [disabled]="isLoadingLogout">
+            <ion-card-header>
+              <ion-card-title>Cerrar sesión</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="logout-content">
+                <ion-icon 
+                  name="log-out-outline" 
+                  size="large" 
+                  color="dark" 
+                  *ngIf="!isLoadingLogout">
+                </ion-icon>
+                <ion-spinner 
+                  name="crescent" 
+                  *ngIf="isLoadingLogout">
+                </ion-spinner>
+              </div>
+            </ion-card-content>
+          </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>

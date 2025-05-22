@@ -1,0 +1,33 @@
+on-card{
+    background-color: #f8efe0;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, .4));
+    cursor: pointer;
+    max-height: 404px;
+    border-radius: 1rem;
+    transition: all .3s ease;
+    justify-items: center;
+}
+ion-card:hover{
+    transform: scale(1.01);
+}
+ion-col{
+    min-width: 323.2px;
+}
+img{
+    height: 100%;
+}
+ion-card-title{
+    text-align: center;
+}
+ion-card-content{
+    padding-bottom: 1rem;
+    overflow: hidden;
+    display: block;
+}
+.preview-wrapper {
+    max-height: 17rem;
+    overflow: hidden;
+    position: relative;
+    border-radius: 1rem;
+    border: 2px solid rgb(40, 67, 83);
+}
