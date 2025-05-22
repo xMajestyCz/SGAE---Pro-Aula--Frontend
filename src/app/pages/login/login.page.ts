@@ -67,7 +67,7 @@ export class LoginPage implements OnInit {
           case 'secretary':
             this.navCtrl.navigateRoot('/secretary'); 
             break;
-          case 'coordinator':
+          case 'academic_coordinator':
             this.navCtrl.navigateRoot('/coordinator'); 
             break;
           default:

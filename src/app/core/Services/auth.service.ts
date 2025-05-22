@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,8 @@ export class AuthService {
       tap((response: any) => {
         if (response?.access && response?.refresh) {
           this.setTokens(response.access, response.refresh);
+          const decodedToken = jwtDecode<any>(response.access);
+          localStorage.setItem('userData', JSON.stringify(decodedToken));
         }
       })
     );

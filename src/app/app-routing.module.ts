@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'coordinator',
     canActivate: [AuthGuard, RoleGuard],
-    data: { role: 'coordinator' },
+    data: { role: 'academic_coordinator' },
     loadChildren: () => import('./pages/coordinator/coordinator.module').then( m => m.CoordinatorPageModule)
   }
 

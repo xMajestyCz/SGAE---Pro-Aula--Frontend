@@ -48,4 +48,10 @@ export class SupabaseService {
       throw error;
     }
   }
+
+  async getImageUrl(bucket: string, path: string): Promise<any> {
+  return this.supabase.storage
+    .from(bucket)
+    .getPublicUrl(path);
+}
 }
