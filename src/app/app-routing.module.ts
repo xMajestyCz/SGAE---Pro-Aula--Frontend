@@ -29,8 +29,8 @@ const routes: Routes = [
   },
   {
     path: 'secretary',
-    // canActivate: [AuthGuard, RoleGuard],
-    // data: { role: 'secretary' },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'secretary' },
     loadChildren: () => import('./pages/secretary/secretary.module').then( m => m.SecretaryPageModule)
   },
   {

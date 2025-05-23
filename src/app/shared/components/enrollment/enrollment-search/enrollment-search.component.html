@@ -1,0 +1,33 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <h3>Consultar Matrícula</h3>
+  <ion-item>
+    <ion-label position="floating">ID de Matrícula o ID de Estudiante</ion-label>
+    <ion-input formControlName="query" type="text" placeholder="Ej. 123 o 456"></ion-input>
+  </ion-item>
+  <div *ngIf="searchForm.get('query')?.invalid && searchForm.get('query')?.touched" class="error-message">
+    ID de Matrícula o ID de Estudiante es requerido.
+  </div>
+  <ion-button expand="full" type="submit" [disabled]="!searchForm.valid || isSearching">
+    Buscar Matrícula
+    <ion-spinner *ngIf="isSearching" name="crescent"></ion-spinner>
+  </ion-button>
+</form>
+
+<div *ngIf="isSearching" class="ion-text-center ion-padding">
+  <ion-spinner name="dots"></ion-spinner>
+  <p>Buscando matrícula...</p>
+</div>
+
+<div *ngIf="foundEnrollment" class="enrollment-details">
+  <h3>Detalles de la Matrícula (ID: {{ foundEnrollment.id }})</h3>
+  <p><strong>Estudiante:</strong> {{ getStudentName(+foundEnrollment.student) }}</p>
+  <p><strong>Grupo/Curso:</strong> {{ getGroupName(+foundEnrollment.group) }}</p>
+  <p><strong>Nombre:</strong> {{ getGroupName(+foundEnrollment.name) }}</p>
+  <p><strong>Fecha:</strong> {{ foundEnrollment.enrollment_date | date }}</p>
+  <p><strong>Estado:</strong> {{ foundEnrollment.status }}</p>
+  <p><strong>Año Académico:</strong> {{ foundEnrollment.academic_year }}</p>
+  <p><strong>Observaciones:</strong> {{ foundEnrollment.observations || 'N/A' }}</p>
+</div>
+<div *ngIf="!foundEnrollment && !isSearching && searchAttempted">
+  <p class="error-message">No se encontró ninguna matrícula con ese ID o para ese estudiante.</p>
+</div>

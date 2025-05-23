@@ -1,28 +1,57 @@
 <div class="enrollment-container">
-  <ion-segment  (ionChange)="onSegmentChanged($event)">
-    <ion-segment-button value="first" content-id="first">
+  <ion-segment (ionChange)="onSegmentChanged($event)" [value]="selectedTab">
+    <ion-segment-button value="first">
       <ion-icon name="receipt-sharp"></ion-icon>
       <ion-label>Matricular</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="second" content-id="second">
+    <ion-segment-button value="second">
       <ion-icon name="search-circle-sharp"></ion-icon>
-      <ion-label>Consultar matricula</ion-label>
+      <ion-label>Consultar matrícula</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="third" content-id="third">
+    <ion-segment-button value="third">
       <ion-icon name="swap-horizontal-sharp"></ion-icon>
-      <ion-label>Modificar matricula</ion-label>
+      <ion-label>Modificar matrícula</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <ion-segment-view>
-    <ion-segment-content [hidden]="selectedTab !== 'first'" id="first">
-sss
-    </ion-segment-content>
-    <ion-segment-content [hidden]="selectedTab !== 'second'" id="second" >
-ccc
-    </ion-segment-content>
-    <ion-segment-content [hidden]="selectedTab !== 'third'" id="third">
+  <hr>
 
-    </ion-segment-content>
-  </ion-segment-view>
+  <div class="form-enrollment" *ngIf="selectedTab === 'first'">
+    <app-enrollmentform
+      [students]="loadService.students$"
+      [groups]="loadService.groups$"
+     [isDataLoading]="((loadService.isStudentsLoading$ | async) ?? false) || ((loadService.isGroupsLoading$ | async) ?? false)"
+      [isSubmitting]="isSubmitting"
+      [enrollmentSuccess]="enrollmentSuccess"
+      (formSubmit)="createEnrollment($event)">
+    </app-enrollmentform>
+  </div>
+
+  <div class="consult-enrollment" *ngIf="selectedTab === 'second'">
+    <app-enrollment-search
+      [foundEnrollment]="foundEnrollment"
+      [isSearching]="isSearching"
+      [searchAttempted]="searchAttempted"
+      [studentsCache]="_studentsCache"
+      [groupsCache]="_groupsCache"
+      (search)="searchEnrollment($event)">
+    </app-enrollment-search>
+  </div>
+
+  <div class="modify-enrollment" *ngIf="selectedTab === 'third'">
+    <app-enrollment-edit-form-component
+      [enrollmentToUpdate]="enrollmentToUpdate"
+      [isLoadingForUpdate]="isLoadingForUpdate"
+      [isUpdating]="isUpdating"
+      [isDeleting]="isDeleting"
+      [searchAttempted]="searchAttemptedModify"
+      [students]="loadService.students$"
+      [groups]="loadService.groups$"
+ [isDataLoading]="((loadService.isStudentsLoading$ | async) ?? false) || ((loadService.isGroupsLoading$ | async) ?? false)"
+      (loadEnrollment)="loadEnrollmentForUpdate($event)"
+      (updateEnrollment)="updateEnrollment($event)"
+      (deleteEnrollment)="deleteEnrollment($event)"
+      (confirmDelete)="confirmDelete()">
+    </app-enrollment-edit-form-component>
+  </div>
 </div>

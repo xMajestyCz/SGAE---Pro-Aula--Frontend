@@ -1,0 +1,96 @@
+<form [formGroup]="searchForm" (ngSubmit)="onLoadForEdit()">
+  <h3>Modificar Matrícula</h3>
+  <ion-item>
+    <ion-label position="floating">ID de Matrícula a Modificar</ion-label>
+    <ion-input formControlName="query" type="number" placeholder="Ej. 123"></ion-input>
+  </ion-item>
+  <div *ngIf="searchForm.get('query')?.invalid && searchForm.get('query')?.touched" class="error-message">
+    ID es requerido.
+  </div>
+  <ion-button expand="full" type="submit" [disabled]="!searchForm.valid || isLoadingForUpdate">
+    Cargar Matrícula para Edición
+    <ion-spinner *ngIf="isLoadingForUpdate" name="crescent"></ion-spinner>
+  </ion-button>
+</form>
+
+<div *ngIf="enrollmentToUpdate" class="form-update">
+  <h3>Editando Matrícula (ID: {{ enrollmentToUpdate.id }})</h3>
+  <form [formGroup]="editForm" (ngSubmit)="onUpdateEnrollment()">
+    <ion-item>
+      <ion-label position="floating">ID de Matrícula</ion-label>
+      <ion-input formControlName="id" type="number" [disabled]="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Estudiante</ion-label>
+      <ion-select formControlName="studentId" placeholder="Selecciona un estudiante"
+                  [disabled]="isDataLoading || (students | async)?.length === 0">
+        <ion-spinner *ngIf="isDataLoading" name="dots"></ion-spinner>
+        <ion-select-option *ngFor="let student of (students | async)" [value]="student.id">
+          {{ student.first_name }} {{ student.first_lastname }} (ID: {{ student.id }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="editForm.get('studentId')?.invalid && editForm.get('studentId')?.touched" class="error-message">
+      Estudiante es requerido.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Grupo/Curso</ion-label>
+      <ion-select formControlName="groupId" placeholder="Selecciona un grupo/curso"
+                  [disabled]="isDataLoading || (availableGroups | async)?.length === 0">
+        <ion-spinner *ngIf="isDataLoading" name="dots"></ion-spinner>
+        <ion-select-option *ngFor="let group of (availableGroups | async)" [value]="group.id">
+          <!-- {{ group.name }} (Cupos: {{ group.capacity - (group.enrolled_students || 0) }}) -->
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="editForm.get('groupId')?.invalid && editForm.get('groupId')?.touched" class="error-message">
+      Grupo/Curso es requerido.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de matrícula</ion-label>
+      <ion-input formControlName="enrollment_date" type="date"></ion-input>
+    </ion-item>
+    <div *ngIf="editForm.get('enrollment_date')?.invalid && editForm.get('enrollment_date')?.touched" class="error-message">
+      Fecha de matrícula es requerida.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select formControlName="status">
+        <ion-select-option value="active">Activo</ion-select-option>
+        <ion-select-option value="inactive">Inactivo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="editForm.get('status')?.invalid && editForm.get('status')?.touched" class="error-message">
+      Estado es requerido.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Año académico</ion-label>
+      <ion-input formControlName="academic_year" type="number"></ion-input>
+    </ion-item>
+    <div *ngIf="editForm.get('academic_year')?.invalid && editForm.get('academic_year')?.touched" class="error-message">
+      Año académico es requerido y debe ser un número válido.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Observaciones</ion-label>
+      <ion-textarea formControlName="observations"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!editForm.valid || isUpdating">
+      Actualizar Matrícula
+      <ion-spinner *ngIf="isUpdating" name="crescent"></ion-spinner>
+    </ion-button>
+    <ion-button expand="full" color="danger" (click)="onConfirmDelete()" [disabled]="isDeleting">
+      Eliminar Matrícula
+      <ion-spinner *ngIf="isDeleting" name="crescent"></ion-spinner>
+    </ion-button>
+  </form>
+</div>
+<div *ngIf="!enrollmentToUpdate && searchAttempted">
+  <p class="error-message">No se encontró ninguna matrícula con ese ID para modificar.</p>
+</div>

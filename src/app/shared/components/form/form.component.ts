@@ -151,7 +151,7 @@ export class FormComponent {
       if (this.selectedRole === 'estudiante') {
         const studentData: Student = {
           ...baseUserData,
-          guardian: this.selectedGuardianId || ''
+          guardian: this.selectedGuardianId ||''
         };
         await this.saveStudent(studentData, form);
       } else {

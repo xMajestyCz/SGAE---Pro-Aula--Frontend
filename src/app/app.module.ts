@@ -10,11 +10,13 @@ import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { EnrollmentComponent } from './shared/components/enrollment/enrollment.component';
+
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, CoreModule ,SharedModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, CoreModule, SharedModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },provideHttpClient(),
     {
       provide: HTTP_INTERCEPTORS,

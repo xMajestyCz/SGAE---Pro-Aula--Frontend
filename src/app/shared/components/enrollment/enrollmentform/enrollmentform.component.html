@@ -1,0 +1,87 @@
+<form [formGroup]="enrollmentForm" (ngSubmit)="onSubmit()">
+  <h3>Nueva Matrícula</h3>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Estudiante</ion-label>
+      <ion-select formControlName="studentId" placeholder="Selecciona un estudiante"
+                  [disabled]="isDataLoading || (students | async)?.length === 0">
+        <ion-spinner *ngIf="isDataLoading" name="dots"></ion-spinner>
+        <ion-select-option *ngFor="let student of (students | async)" [value]="student.id">
+          {{ student.first_name }} {{ student.first_lastname }} (ID: {{ student.id }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="enrollmentForm.get('studentId')?.invalid && enrollmentForm.get('studentId')?.touched" class="error-message">
+      Estudiante es requerido.
+    </div>
+    <div *ngIf="isDataLoading" class="ion-text-center ion-padding">
+      <p>Cargando estudiantes...</p>
+    </div>
+    <div *ngIf="!isDataLoading && (students | async)?.length === 0" class="ion-text-center ion-padding">
+      <p>No se encontraron estudiantes disponibles.</p>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Grupo/Curso</ion-label>
+      <ion-select formControlName="groupId" placeholder="Selecciona un grupo/curso"
+                  [disabled]="isDataLoading || (availableGroups | async)?.length === 0">
+        <ion-spinner *ngIf="isDataLoading" name="dots"></ion-spinner>
+        <ion-select-option *ngFor="let group of (availableGroups | async)" [value]="group.id">
+          <!-- {{ group.name }} (Cupos: {{ group.capacity - (group.enrolled_students || 0) }}) -->
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="enrollmentForm.get('groupId')?.invalid && enrollmentForm.get('groupId')?.touched" class="error-message">
+      Grupo/Curso es requerido.
+    </div>
+    <div *ngIf="isDataLoading" class="ion-text-center ion-padding">
+      <p>Cargando grupos/cursos...</p>
+    </div>
+    <div *ngIf="!isDataLoading && (availableGroups | async)?.length === 0" class="ion-text-center ion-padding">
+      <p>No se encontraron grupos/cursos disponibles para este estudiante.</p>
+    </div>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Fecha de matrícula</ion-label>
+      <ion-input formControlName="enrollment_date" type="date"></ion-input>
+    </ion-item>
+    <div *ngIf="enrollmentForm.get('enrollment_date')?.invalid && enrollmentForm.get('enrollment_date')?.touched" class="error-message">
+      Fecha de matrícula es requerida.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select formControlName="status">
+        <ion-select-option value="active">Activo</ion-select-option>
+        <ion-select-option value="inactive">Inactivo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="enrollmentForm.get('status')?.invalid && enrollmentForm.get('status')?.touched" class="error-message">
+      Estado es requerido.
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Año académico</ion-label>
+      <ion-input formControlName="academic_year" type="number"></ion-input>
+    </ion-item>
+    <div *ngIf="enrollmentForm.get('academic_year')?.invalid && enrollmentForm.get('academic_year')?.touched" class="error-message">
+      Año académico es requerido y debe ser un número válido (ej. 2024).
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Observaciones</ion-label>
+      <ion-textarea formControlName="observations"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" type="submit" [disabled]="!enrollmentForm.valid || isSubmitting || isDataLoading">
+    Matricular
+    <ion-spinner *ngIf="isSubmitting" name="crescent"></ion-spinner>
+  </ion-button>
+  <div *ngIf="enrollmentSuccess" class="success-message ion-text-center ion-padding">
+    <ion-icon name="checkmark-circle-sharp" size="large"></ion-icon>
+    <p>¡Matrícula realizada con éxito!</p>
+  </div>
+</form>

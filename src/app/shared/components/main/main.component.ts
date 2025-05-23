@@ -6,6 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router'; 
 import { ReportComponent } from '../report/report.component';
 import { ToastService } from '../../services/toast.service';
+import { EnrollmentComponent } from '../enrollment/enrollment.component';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +23,7 @@ export class MainComponent implements OnInit {
   @Input() ionCardTitle3 = '';
   isLoaded = false;
   isLoadingLogout = false; 
+  selectedTab: any; // Add this property to fix the error
 
   constructor(
     private modalService: ModalService, 
@@ -91,7 +93,7 @@ export class MainComponent implements OnInit {
       {},
       'report-modal'
     );
-    
+
     modal.onDidDismiss().then((result: any) => {
       if (result.data?.success) {
         this.toastService.show(
@@ -103,4 +105,5 @@ export class MainComponent implements OnInit {
       }
     });
   }
+
 }

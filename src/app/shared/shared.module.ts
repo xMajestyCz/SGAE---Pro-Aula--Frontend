@@ -14,6 +14,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { LettersOnlyDirective } from './directives/input-restriction.directive';
 import { NumbersOnlyDirective } from './directives/input-restriction.directive';
 import { EnrollmentComponent } from './components/enrollment/enrollment.component';
+import { EnrollmentformComponent } from './components/enrollment/enrollmentform/enrollmentform.component';
+import { EnrollmentSearchComponent } from './components/enrollment/enrollment-search/enrollment-search.component';
+import { EnrollmentEditComponent } from './components/enrollment/enrollment-edit-form/enrollment-edit-form.component';
 
 
 @NgModule({
@@ -24,7 +27,11 @@ import { EnrollmentComponent } from './components/enrollment/enrollment.componen
     ChangePasswordComponent, 
     LettersOnlyDirective, 
     NumbersOnlyDirective,
-    EnrollmentComponent
+    EnrollmentComponent,
+    EnrollmentformComponent,
+    EnrollmentSearchComponent,
+    EnrollmentEditComponent
+  
   ],
   imports: [
     CommonModule, 
@@ -41,7 +48,11 @@ import { EnrollmentComponent } from './components/enrollment/enrollment.componen
     ChangePasswordComponent, 
     LettersOnlyDirective, 
     NumbersOnlyDirective,
-    EnrollmentComponent
+    EnrollmentComponent,
+    EnrollmentComponent,
+    EnrollmentComponent,
+    EnrollmentformComponent,
+    EnrollmentSearchComponent
 
   ]
 })

@@ -1,0 +1,21 @@
+.error-message {
+  color: var(--ion-color-danger, red);
+  font-size: 0.8em;
+  margin-left: 16px;
+  margin-bottom: 10px;
+}
+.ion-text-center {
+  text-align: center;
+}
+.ion-padding {
+  padding: 16px;
+}
+.form-update {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 8px;
+}
+h3 {
+  color: var(--ion-color-medium, #92949c);
+}

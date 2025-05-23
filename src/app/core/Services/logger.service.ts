@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoggerService {
+  [x: string]: any;
 
   logInfo(message: string) {
     console.info(`[INFO]: ${message}`);
