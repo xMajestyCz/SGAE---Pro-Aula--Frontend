@@ -17,6 +17,8 @@ import { EnrollmentComponent } from './components/enrollment/enrollment.componen
 import { EnrollmentformComponent } from './components/enrollment/enrollmentform/enrollmentform.component';
 import { EnrollmentSearchComponent } from './components/enrollment/enrollment-search/enrollment-search.component';
 import { EnrollmentEditComponent } from './components/enrollment/enrollment-edit-form/enrollment-edit-form.component';
+import { AcademyResultComponent } from './components/academy-result/academy-result.component';
+import { ScheduleStudentComponent } from './components/schedule-student/schedule-student.component';
 
 
 @NgModule({
@@ -30,14 +32,17 @@ import { EnrollmentEditComponent } from './components/enrollment/enrollment-edit
     EnrollmentComponent,
     EnrollmentformComponent,
     EnrollmentSearchComponent,
-    EnrollmentEditComponent
-  
+    EnrollmentEditComponent,
+    AcademyResultComponent,
+    ScheduleStudentComponent
+    
   ],
   imports: [
     CommonModule, 
     IonicModule, 
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
   ],
   providers: [],
   exports: [
@@ -52,7 +57,9 @@ import { EnrollmentEditComponent } from './components/enrollment/enrollment-edit
     EnrollmentComponent,
     EnrollmentComponent,
     EnrollmentformComponent,
-    EnrollmentSearchComponent
+    EnrollmentSearchComponent,
+    AcademyResultComponent,
+    ScheduleStudentComponent
 
   ]
 })

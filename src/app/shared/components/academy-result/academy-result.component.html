@@ -1,0 +1,61 @@
+<ion-card  (click)="openModal()">
+  <ion-card-content>
+
+          <div class="close-container">
+      <ion-button fill="clear" (click)="closeModal()">
+        <ion-icon name="close-outline" size="large"></ion-icon>
+      </ion-button>
+    </div>
+    <ion-card-subtitle>Curso: 10mo Grado</ion-card-subtitle>
+    <ion-card-subtitle>Nombre: Juan Pérez</ion-card-subtitle>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Materia</th>
+          <th>P1</th>
+          <th>p2</th>
+          <th>p3</th>
+          <th>promedio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Matemáticas</td>
+          <td>85</td>
+          <td>90</td>
+          <td>88</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Historia</td>
+          <td>78</td>
+          <td>82</td>
+          <td>80</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Ciencias</td>
+          <td>92</td>
+          <td>95</td>
+          <td>94</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <td>Lengua</td>
+          <td>88</td>
+          <td>85</td>
+          <td>90</td>
+          <td>10</td>
+        </tr>
+  
+      </tbody>
+    </table>
+
+      <!-- <div *ngIf="results.length === 0" class="ion-text-center ion-padding">
+        <p>No hay resultados académicos disponibles.</p>
+      </div> -->
+    <!-- </ion-list> -->
+  </ion-card-content>
+
+</ion-card>

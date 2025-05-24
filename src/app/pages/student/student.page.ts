@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
+import { AcademyResultComponent } from 'src/app/shared/components/academy-result/academy-result.component';
+import { ScheduleStudentComponent } from 'src/app/shared/components/schedule-student/schedule-student.component';
+import { ModalService } from 'src/app/shared/services/modal.service';
 
 @Component({
   selector: 'app-student',
@@ -8,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentPage implements OnInit {
 
-  constructor() { }
+  constructor(private modalservice:ModalService) { }
 
   ngOnInit() {
   }

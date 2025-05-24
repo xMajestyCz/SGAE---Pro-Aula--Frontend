@@ -1,4 +1,4 @@
-// src/app/features/enrollment/components/enrollment-search/enrollment-search.component.ts
+
 import { CommonModule } from '@angular/common'; // Importa CommonModule
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; // Importa ReactiveFormsModule

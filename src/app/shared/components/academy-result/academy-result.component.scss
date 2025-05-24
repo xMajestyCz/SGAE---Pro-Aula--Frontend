@@ -1,0 +1,53 @@
+ion-card {
+  position: relative;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: var(--ion-card-background, #fff);
+}
+
+.close-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+ion-button {
+  color: var(--ion-color-dark);
+  font-size: 18px;
+}
+
+ion-card-subtitle {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--ion-color-medium);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid var(--ion-color-light);
+  text-align: center;
+}
+
+th {
+  background: var(--ion-color-primary);
+  color: white;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--ion-color-light);
+}
+
+tbody tr:hover {
+  background: var(--ion-color-secondary);
+  color: white;
+}

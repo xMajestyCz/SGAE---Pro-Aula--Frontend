@@ -29,7 +29,7 @@ export class SecretaryPage implements OnInit {
     );
 
     await modal.present();
-    const { data, role } = await modal.onWillDismiss();
+
 
     this.selectedTab = currentTab; // Restaurar el segmento seleccionado
   }

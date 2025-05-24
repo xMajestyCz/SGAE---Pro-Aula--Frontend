@@ -38,7 +38,7 @@ export class LoadService {
   loadStudents(): Observable<StudentInfo[]> {
     this._isStudentsLoading.next(true);
     this.loggerService.logInfo('LoadService: Cargando estudiantes...');
-    return this.apiService.get('students/info').pipe( // Asume un endpoint 'students/info' para datos simplificados
+    return this.apiService.get('students').pipe( // Asume un endpoint 'students/info' para datos simplificados
       tap(students => {
         this._students.next(students);
         this.loggerService.logInfo('LoadService: Estudiantes cargados exitosamente: ' + JSON.stringify(students));
