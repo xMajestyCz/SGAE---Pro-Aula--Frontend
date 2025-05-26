@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ReportComponent } from '../report/report.component';
 import { ToastService } from '../../services/toast.service';
 import { jwtDecode } from 'jwt-decode';
-import { UserService } from 'src/app/core/Services/user.service';
+import { ApiService } from 'src/app/core/Services/api.service';
 
 @Component({
   selector: 'app-main',
@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
     private loadingCtrl: LoadingController, 
     private router: Router,
     private toastService: ToastService,
-    private userService: UserService,
+    private apiService: ApiService
   ) { }
 
   async ngOnInit() {
@@ -118,7 +118,23 @@ export class MainComponent implements OnInit {
         const role = localStorage.getItem('UserRole');
         
         if (userId && role) {
-          this.userImage = await this.userService.getUserImage(userId, role);
+          // Obtener los datos del usuario desde la API
+          const endpoint = this.apiService.getEndpointByRole(role);
+          const userData = await this.apiService.get(`${endpoint}${userId}/`).toPromise();
+          
+          console.log('Datos del usuario:', userData); // Para debuggear
+          
+          if (userData?.image) {
+            // Si la imagen ya es una URL completa, úsala directamente
+            if (userData.image.startsWith('http')) {
+              this.userImage = userData.image;
+            } 
+            // Si es solo el nombre del archivo, construye la URL
+            else if (userData.image.includes('_')) { // Verifica si es un nombre con timestamp
+              this.userImage = `https://frnlhyujwsyflpyrlifg.supabase.co/storage/v1/object/public/images/${role}/${userData.image}`;
+            }
+            console.log('URL final de la imagen:', this.userImage);
+          }
         }
       } catch (error) {
         console.error('Error cargando imagen:', error);

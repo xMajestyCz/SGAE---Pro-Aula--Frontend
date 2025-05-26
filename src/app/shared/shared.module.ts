@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { LettersOnlyDirective } from './directives/input-restriction.directive';
 import { NumbersOnlyDirective } from './directives/input-restriction.directive';
 import { SubjectComponent } from './components/subject/subject.component';
+import { FieldFormComponent } from './components/field-form/field-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SubjectComponent } from './components/subject/subject.component';
     ChangePasswordComponent,
     LettersOnlyDirective,
     NumbersOnlyDirective,
-    SubjectComponent
+    SubjectComponent,
+    FieldFormComponent
   ],
   imports: [
     CommonModule, IonicModule, FormsModule,ReactiveFormsModule
@@ -31,7 +33,8 @@ import { SubjectComponent } from './components/subject/subject.component';
     ChangePasswordComponent,
     LettersOnlyDirective,
     NumbersOnlyDirective,
-    SubjectComponent
+    SubjectComponent,
+    FieldFormComponent
   ]
 })
 

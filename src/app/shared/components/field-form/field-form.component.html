@@ -1,0 +1,237 @@
+<form method="post" #form="ngForm" (ngSubmit)="submitForm(form)">
+  <ion-item color="new7">
+    <ion-grid fixed>
+      <div class="title-flex">
+        <ion-icon name="information-circle-outline" size="large"></ion-icon>
+        <h4>Información básica</h4>
+      </div>
+      <ion-row>
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.first_name" 
+            name="first_name" 
+            label="1° nombre" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? 'Rodrigo' : ''"
+            [disabled]="mode === 'edit'"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+            required>
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.second_name" 
+            name="second_name" 
+            label="2° nombre" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? 'José' : ''"
+            [disabled]="mode === 'edit'"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+">
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.first_lastname" 
+            name="first_lastname" 
+            label="1° apellido" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? 'Morales' : ''"
+            [disabled]="mode === 'edit'"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+            required>
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.second_lastname" 
+            name="second_lastname" 
+            label="2° apellido" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? 'del Campo' : ''"
+            [disabled]="mode === 'edit'"
+            pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+"
+            required>
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.id_card" 
+            name="id_card" 
+            label="Número de documento" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? '1234567890' : ''"
+            [disabled]="mode === 'edit'"
+            required 
+            maxlength="10" 
+            minlength="10"
+            pattern="[0-9]+">
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="6">
+          <ion-input 
+            [(ngModel)]="formData.birthdate" 
+            name="birthdate" 
+            type="date" 
+            label="Fecha de nacimiento" 
+            label-placement="stacked" 
+            fill="outline" 
+            [disabled]="mode === 'edit'"
+            required
+            [max]="selectedRole === 'estudiante' ? (maxBirthDateStudent | date:'yyyy-MM-dd') : (maxBirthDateOtherRoles | date:'yyyy-MM-dd')"
+            [min]="selectedRole === 'estudiante' ? (minBirthDateStudent | date:'yyyy-MM-dd') : (minBirthDateOtherRoles | date:'yyyy-MM-dd')">
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-input 
+            [(ngModel)]="formData.place_of_birth" 
+            name="place_of_birth" 
+            label="Lugar de nacimiento" 
+            label-placement="floating" 
+            [placeholder]="mode === 'create' ? 'Lugar de nacimiento' : ''"
+            fill="outline" 
+            [disabled]="mode === 'edit'"
+            required>
+          </ion-input>
+        </ion-col>
+        
+        <ion-col class="image-container">
+          <div class="upload-area" (click)="fileInput.click()">
+            <input 
+              #fileInput
+              type="file" 
+              (change)="handleFileInput($event)"
+              accept="image/*"
+              style="display: none"
+              [disabled]="mode === 'edit'"
+            >
+            
+            <div *ngIf="!selectedImage && !formData.image" class="upload-prompt">
+              <ion-icon name="camera-outline" size="large"></ion-icon>
+              <ion-label>Foto de perfil (Opcional)</ion-label>
+            </div>
+            
+            <div *ngIf="selectedImage || formData.image" class="image-preview">
+              <img [src]="selectedImage || formData.image" alt="Preview">
+              <ion-button 
+                fill="clear" 
+                color="light"
+                (click)="removeImage($event)"
+                class="remove-button">
+                <ion-icon name="close-circle" color="danger"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item color="new7">
+    <ion-grid fixed>
+      <div class="title-flex">
+        <ion-icon name="call-outline" size="large"></ion-icon>
+        <h4>Información de contacto</h4>
+      </div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-input 
+            [(ngModel)]="formData.address" 
+            name="address" 
+            label="Dirección de residencia" 
+            label-placement="floating" 
+            [placeholder]="mode === 'create' ? 'Dirección completa' : ''"
+            fill="outline" 
+            required>
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-input 
+            [(ngModel)]="formData.phone" 
+            name="phone" 
+            type="tel" 
+            label="Teléfono" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? '3001234567' : ''"
+            required 
+            maxlength="10" 
+            minlength="10"
+            pattern="[0-9]+">
+          </ion-input>
+        </ion-col>
+        
+        <ion-col size="12">
+          <ion-input 
+            [(ngModel)]="formData.email" 
+            name="email" 
+            type="email" 
+            label="Correo electrónico" 
+            label-placement="floating" 
+            fill="outline" 
+            [placeholder]="mode === 'create' ? 'ejemplo@dominio.com' : ''"
+            required
+            pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-item color="new7" *ngIf="selectedRole === 'estudiante'">
+    <ion-grid fixed>
+      <div class="important" *ngIf="mode === 'create'">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <ion-label>Antes de registrar un estudiante, verifique que el acudiente esté registrado</ion-label>
+      </div>
+      <div class="title-flex">
+        <ion-icon name="people-circle-sharp" size="large"></ion-icon>
+        <h4>Acudiente</h4>
+      </div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-select 
+            label="Selecciona el acudiente" 
+            label-placement="floating" 
+            interface="modal" 
+            justify="space-between"
+            [(ngModel)]="selectedGuardianId"
+            name="guardian"
+            [disabled]="mode === 'edit' && !selectedGuardianId"
+            required>
+            
+            <ion-select-option 
+              *ngFor="let guardian of guardians" 
+              [value]="guardian.id">
+              {{ guardian.first_name }} {{ guardian.second_name || '' }} 
+              {{ guardian.first_lastname }} {{ guardian.second_lastname || '' }}
+              ({{ guardian.id_card }})
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+
+  <ion-button 
+    expand="block" 
+    shape="round" 
+    color="new8" 
+    type="submit" 
+    [disabled]="form.invalid || isLoading">
+    
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+    <span *ngIf="!isLoading">{{ mode === 'create' ? 'Guardar datos' : 'Actualizar datos' }}</span>
+  </ion-button>
+</form>

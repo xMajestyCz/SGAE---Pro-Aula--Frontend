@@ -50,9 +50,6 @@ const routes: Routes = [
     data: { role: 'academic_coordinator' },
     loadChildren: () => import('./pages/coordinator/coordinator.module').then( m => m.CoordinatorPageModule)
   }
-
-
-
 ];
 
 @NgModule({

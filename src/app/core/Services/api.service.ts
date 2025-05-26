@@ -66,11 +66,11 @@ export class ApiService {
     ).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
   delete(endpoint: string, id: string | number): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.delete(`${this.apiUrl}${endpoint}${id}/`, { headers })
+    return this.http.delete(`${this.apiUrl}${endpoint}${id}`, { headers })
       .pipe(
         catchError(this.handleError)
       );
